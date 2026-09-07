@@ -18,8 +18,11 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   - [`references/genre-rules.md`](./skills/korean-plain-writer/references/genre-rules.md): 장르별 톤 규칙
   - [`references/fabricated-terms.md`](./skills/korean-plain-writer/references/fabricated-terms.md): 조어형 추상 개념어 판별법
 - 예문 뱅크: [`examples/pairs/`](./skills/korean-plain-writer/examples/pairs/) (Before/After, 100~200쌍이 목표이고 지금은 45쌍)
-- 변경률 가드 스크립트: [`scripts/change_rate_check.py`](./skills/korean-plain-writer/scripts/change_rate_check.py)
+- 변경률 확인 스크립트: [`scripts/change_rate_check.py`](./skills/korean-plain-writer/scripts/change_rate_check.py)
 - 참조 무결성 검사: [`scripts/check_references.py`](./scripts/check_references.py) (레포 루트, 스킬 파일들이 서로 가리키는 경로가 실제로 존재하는지 확인)
+- 평가: [`eval/`](./skills/korean-plain-writer/eval/) (예문 뱅크와 겹치지 않는 held-out
+  텍스트로 블라인드 A/B + 의미 보존 게이트를 따로 채점. `eval/change-rate-baseline.md`는
+  변경률 임계값을 재조정한 실측 근거)
 
 ## 설계 원칙
 
@@ -43,7 +46,12 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - [x] `examples/pairs/` 45쌍 (장르별 15쌍)
 - [x] 변경률 가드 스크립트, 참조 무결성 검사 스크립트
 - [x] `vendor/humanizer/`에 DaleSeo/korean-skills의 humanizer 스킬 전문 로컬 복사
-- [ ] 예문 뱅크를 100~200쌍으로 마저 확장 (최우선, 현재 45/100~200)
+- [x] `eval/`: held-out 텍스트 3개(장르별 1개)로 첫 평가 실행, 변경률 임계값이
+      korean-plain-writer에는 안 맞는다는 것을 발견하고 재조정(30~50% → 150%,
+      가드가 아니라 참고 수치로 성격 변경)
+- [ ] 예문 뱅크를 100~200쌍으로 마저 확장 (최우선, 현재 45/100~200. 실제 수집된
+      사례 비중을 늘리는 게 개수보다 중요)
 - [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
 - [ ] `fabricated-terms.md`의 구성 예시를 실제 겪은 사례로 교체·보강
-- [ ] 서로 다른 장르 텍스트로 반복 eval
+- [ ] `eval/holdout/`의 블라인드 A/B 결과를 실제 사람 판단으로 기록 (`eval/results.md`)
+- [ ] "스킬 미적용 재작성"(naive baseline) 비교군 추가해 스킬 자체의 기여분 측정
