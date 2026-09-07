@@ -18,6 +18,10 @@
 써야 하는가"(→ `plain-vocabulary-map.md`, `structure-patterns.md`, `genre-rules.md`,
 `examples/pairs/`)입니다.
 
+한 가지 더: 이 카탈로그 6개 카테고리는 전부 "문장을 어떻게 쓰는가" 층위입니다. "없는
+개념에 그럴듯한 이름을 붙이는" 문제(조어형 추상 개념어)는 이 카탈로그가 다루지 않는
+축이라 `references/fabricated-terms.md`에 따로 정리했습니다.
+
 ## 6개 카테고리 요약 (우선순위 순)
 
 원본의 검증 근거(KatFishNet 논문, ArXiv 2503.00032v4 기반 AUC 수치)는 원본 문서를
