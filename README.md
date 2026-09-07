@@ -4,8 +4,8 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 표준 한국어로 읽히게 만드는 Claude Code 스킬입니다.
 
 - 스킬 정의: [`SKILL.md`](./SKILL.md)
-- 진단 카탈로그: [`references/ai-tell-catalog.md`](./references/ai-tell-catalog.md)
-  (원본: [DaleSeo/korean-skills](https://github.com/DaleSeo/korean-skills)의 humanizer)
+- 진단 카탈로그: [`references/ai-tell-catalog.md`](./references/ai-tell-catalog.md) (요약),
+  [`vendor/humanizer/`](./vendor/humanizer/) (전문, [DaleSeo/korean-skills](https://github.com/DaleSeo/korean-skills)의 humanizer를 그대로 복사)
 - 목표 문체 모듈:
   - [`references/plain-vocabulary-map.md`](./references/plain-vocabulary-map.md): 어휘 순화 매핑표
   - [`references/structure-patterns.md`](./references/structure-patterns.md): 정보 전달 글 구조 템플릿
@@ -30,6 +30,7 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 - [x] `references/` 4개 파일 초안 (어휘 매핑표 시드 55개, 구조 템플릿 4종, 장르 규칙 3종)
 - [x] `examples/pairs/` 45쌍 (장르별 15쌍)
 - [x] 변경률 가드 스크립트
+- [x] `vendor/humanizer/`에 DaleSeo/korean-skills의 humanizer 스킬 전문 로컬 복사
 - [ ] 예문 뱅크를 100~200쌍으로 마저 확장 (최우선, 현재 45/100~200)
 - [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
 - [ ] 서로 다른 장르 텍스트로 반복 eval
