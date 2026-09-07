@@ -10,6 +10,7 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
   - [`references/plain-vocabulary-map.md`](./references/plain-vocabulary-map.md): 어휘 순화 매핑표
   - [`references/structure-patterns.md`](./references/structure-patterns.md): 정보 전달 글 구조 템플릿
   - [`references/genre-rules.md`](./references/genre-rules.md): 장르별 톤 규칙
+  - [`references/fabricated-terms.md`](./references/fabricated-terms.md): 조어형 추상 개념어 판별법
 - 예문 뱅크: [`examples/pairs/`](./examples/pairs/) (Before/After, 100~200쌍이 목표이고 지금은 45쌍)
 - 변경률 가드 스크립트: [`scripts/change_rate_check.py`](./scripts/change_rate_check.py)
 
@@ -31,6 +32,8 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 - [x] `examples/pairs/` 45쌍 (장르별 15쌍)
 - [x] 변경률 가드 스크립트
 - [x] `vendor/humanizer/`에 DaleSeo/korean-skills의 humanizer 스킬 전문 로컬 복사
+- [x] `references/fabricated-terms.md`: 조어형 추상 개념어(없는 개념에 이름 붙이기) 판별 모듈 추가
 - [ ] 예문 뱅크를 100~200쌍으로 마저 확장 (최우선, 현재 45/100~200)
 - [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
+- [ ] `fabricated-terms.md`의 구성 예시를 실제 겪은 사례로 교체·보강
 - [ ] 서로 다른 장르 텍스트로 반복 eval

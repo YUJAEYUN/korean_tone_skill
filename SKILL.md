@@ -51,6 +51,9 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 패턴의 상세 정의와 예시는 필요할 때만 `references/ai-tell-catalog.md`를 열어 참조하세요.
 모든 패턴을 매번 전부 로드할 필요는 없습니다(progressive disclosure).
 
+이 6개 카테고리와는 별도로, **조어형 추상 개념어**(없는 개념에 그럴듯한 이름을 붙이는
+패턴)도 확인합니다. 자세한 판별법은 `references/fabricated-terms.md` 참조.
+
 ### 2단계: 장르·목적 판별
 
 텍스트가 다음 중 무엇에 가까운지 먼저 판단합니다. 이 판단에 따라 3단계에서 참조할 파일이
@@ -75,7 +78,9 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
    순서가 자연스러운지 점검하고 필요하면 재배치합니다. **문장 자체의 어휘 밀도나 접속 방식을
    수능 비문학처럼 만들지 않습니다.** 이 모듈은 순서에만 관여합니다.
 3. `references/genre-rules.md`로 문장 길이 리듬과 톤을 장르에 맞춥니다.
-4. `examples/pairs/`의 Before/After 사례를 필요시 참조해 감을 잡습니다(규칙 나열보다 실례가
+4. `references/fabricated-terms.md`의 판별법으로 조어형 추상 개념어를 확인하고,
+   조어로 판단되면 용어를 그대로 두지 말고 평범한 서술로 풀어씁니다.
+5. `examples/pairs/`의 Before/After 사례를 필요시 참조해 감을 잡습니다(규칙 나열보다 실례가
    더 정확한 기준이 될 때가 많습니다).
 
 ### 4단계: 의미 보존 자체검증 (필수, 생략 불가)
@@ -129,6 +134,7 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 |---|---|
 | `references/ai-tell-catalog.md` | 1단계 진단 시, 6개 카테고리 개요가 필요할 때 |
 | `vendor/humanizer/references/*.md` | 1단계에서 감지된 카테고리의 정확한 판정 기준·예문이 필요할 때 |
+| `references/fabricated-terms.md` | 1단계·3단계에서 조어형 추상 개념어가 의심될 때 |
 | `references/structure-patterns.md` | 2단계에서 "정보 전달형"으로 판별했을 때만 |
 | `references/plain-vocabulary-map.md` | 3단계 어휘 치환 시 항상 |
 | `references/genre-rules.md` | 3단계 톤 조정 시 항상 |
