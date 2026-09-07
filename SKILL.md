@@ -20,8 +20,9 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 
 이 스킬은 두 개의 서로 다른 질문에 답합니다.
 
-1. **"무엇이 어색한가?"**: AI체 진단입니다. 새로 만들지 않고 검증된 외부 카탈로그
-   (`references/ai-tell-catalog.md`, 원본: DaleSeo/korean-skills의 humanizer)를 그대로 씁니다.
+1. **"무엇이 어색한가?"**: AI체 진단입니다. 새로 만들지 않고 검증된 외부 카탈로그를
+   그대로 씁니다. 요약은 `references/ai-tell-catalog.md`에, 실제 판정 기준 전문은
+   `vendor/humanizer/`에 있습니다(원본: DaleSeo/korean-skills의 humanizer).
 2. **"그럼 대신 어떻게 써야 하는가?"**: 목표 문체 적용입니다. 이 스킬의 핵심 부가가치이며,
    `references/plain-vocabulary-map.md`, `references/structure-patterns.md`,
    `references/genre-rules.md`, `examples/pairs/`로 구성됩니다.
@@ -126,7 +127,8 @@ AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를
 
 | 파일 | 언제 여는가 |
 |---|---|
-| `references/ai-tell-catalog.md` | 1단계 진단 시, 패턴 상세 정의가 필요할 때 |
+| `references/ai-tell-catalog.md` | 1단계 진단 시, 6개 카테고리 개요가 필요할 때 |
+| `vendor/humanizer/references/*.md` | 1단계에서 감지된 카테고리의 정확한 판정 기준·예문이 필요할 때 |
 | `references/structure-patterns.md` | 2단계에서 "정보 전달형"으로 판별했을 때만 |
 | `references/plain-vocabulary-map.md` | 3단계 어휘 치환 시 항상 |
 | `references/genre-rules.md` | 3단계 톤 조정 시 항상 |

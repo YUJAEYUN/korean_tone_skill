@@ -1,12 +1,16 @@
 # AI체 진단 카탈로그
 
-새 진단 규칙을 만들지는 않았습니다. **DaleSeo/korean-skills** 저장소의 `humanizer` 스킬
-(`skills/humanizer/SKILL.md` 및 `skills/humanizer/references/*.md`)이 검증해 둔
-6개 카테고리·40개 패턴, 심각도 체계, 의미 보존 체크리스트, 변경률 가드, 자연도 등급을
-그대로 가져다 씁니다.
+새 진단 규칙을 만들지는 않았습니다. **DaleSeo/korean-skills** 저장소의 `humanizer` 스킬이
+검증해 둔 6개 카테고리·40개 패턴, 심각도 체계, 의미 보존 체크리스트, 변경률 가드, 자연도
+등급을 그대로 가져다 씁니다.
 
-- 원본 저장소: https://github.com/DaleSeo/korean-skills
-- 원본 경로: `skills/humanizer/`
+원본을 링크로만 걸어두면 실제 진단 때마다 외부 저장소를 다시 불러와야 하고 원본이
+바뀌면 이 스킬도 같이 깨지므로, 실제 판정 기준 파일은 `vendor/humanizer/`에 그대로
+복사해 뒀습니다. 상세 정의가 필요하면 아래 요약표 대신 그 파일을 직접 여세요.
+
+- 로컬 사본: `vendor/humanizer/SKILL.md`, `vendor/humanizer/references/*.md`
+  (출처·커밋·라이선스는 `vendor/humanizer/PROVENANCE.md` 참고)
+- 원본 저장소: https://github.com/DaleSeo/korean-skills (`skills/humanizer/`)
 - 라이선스: MIT
 
 `korean-plain-writer`의 1단계(진단)와 4~5단계(의미 보존/변경률 가드)는 이 카탈로그를
@@ -30,11 +34,11 @@
 | 6. 번역투 | 13 | 조사 번역투("~에 대해/통해/있어서"), 동사 중복("가지고 있다"), 피동 남용("되어진다/에 의해"), 가능 표현 남용("~할 수 있다"), 미래 단정형 남용("~것이다" 계열) 등 |
 
 > ⚠️ 여기 있는 목록은 "빠른 참조용 요약"입니다. 정확한 패턴 정의·판정 기준·예문이 필요하면
-> 원본 저장소의 `skills/humanizer/references/` 하위 파일들
-> (`punctuation-patterns.md`, `spacing-patterns.md`, `pos-patterns.md`,
-> `vocabulary-patterns.md`, `structure-patterns.md`, `translation-ese-patterns.md`)을
-> 직접 확인하세요. 이 스킬의 `references/structure-patterns.md`는 이름은 같지만
-> **완전히 다른 내용**(문단 배치 순서 템플릿)이니 혼동하지 않습니다.
+> `vendor/humanizer/references/` 하위 파일들(`punctuation-patterns.md`,
+> `spacing-patterns.md`, `pos-patterns.md`, `vocabulary-patterns.md`,
+> `structure-patterns.md`, `translation-ese-patterns.md`)을 직접 여세요. 이 스킬의
+> `references/structure-patterns.md`는 이름은 같지만 **완전히 다른 내용**(문단 배치
+> 순서 템플릿)이니 혼동하지 않습니다.
 
 아래 네 가지(심각도 체계, 의미 보존 체크리스트, 변경률 가드, 자연도 등급)도 전부
 원본에서 가져왔습니다.
