@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "korean-plain-writer",
+  "description": "AI 티 나는 한국어를 쉬운 표준 한국어로 재작성하는 스킬 마켓플레이스.",
+  "owner": {
+    "name": "20211072@edu.hanbat.ac.kr"
+  },
+  "plugins": [
+    {
+      "name": "korean-plain-writer",
+      "description": "번역투·명사화·상투어·조어형 개념어를 진단하고 쉬운 표준 한국어로 윤문합니다.",
+      "source": "./",
+      "category": "writing"
+    }
+  ]
+}

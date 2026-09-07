@@ -1,0 +1,9 @@
+{
+  "name": "korean-plain-writer",
+  "version": "0.1.0",
+  "description": "AI 티 나는 한국어를 진단하고 쉬운 표준 한국어로 재작성하는 Claude Code 스킬.",
+  "author": {
+    "name": "20211072@edu.hanbat.ac.kr"
+  },
+  "license": "MIT"
+}
