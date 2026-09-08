@@ -57,3 +57,12 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       3/3 재작성본 선택. 표본이 작아 참고 수준)
 - [ ] 평가자 2명 이상, 이미 자연스러운 원문도 포함해서 2차 라운드 진행
 - [ ] "스킬 미적용 재작성"(naive baseline) 비교군 추가해 스킬 자체의 기여분 측정
+- [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
+      스타일/내용/유창성 3축 평가, 사람 평가 모범 사례(van der Lee 외), LLM 채점자
+      선례, 국립국어원 공공언어 자료, 한국어 가독성 공식 연구, 쉬운 글 효과 연구
+- [x] 유창성 체크 축 추가 (`eval/fluency-rubric.md`), 자연도·의미보존과 분리해서 채점
+- [ ] 국립국어원 "쉬운 공문서 쓰기 길잡이"/"공공언어 바로 쓰기" 원문 직접 확인
+      (이 세션에서는 `korean.go.kr`/`data.go.kr`/`kplain.kr` 접근이 막혀 있음)해서
+      `plain-vocabulary-map.md`를 공인 대체어 목록과 대조
+- [ ] 문장 길이 등 간단한 자체 가독성 지표 추가 (한국어 가독성 공식 원문은 KCI 학술
+      DB 안에 있어 이번엔 확인 못 함)
