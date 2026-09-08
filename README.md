@@ -34,7 +34,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 5. 남이 이미 잘 만든 구조도 필요한 만큼만 가져옵니다. 우리 규모에 안 맞는 부분(여러
    에이전트 지원, npm 배포, 벤치마크 스위트 같은 것)까지 통째로 베끼지 않습니다.
 
-자세한 파이프라인(진단 → 장르 판별 → 목표 문체 적용 → 의미 보존 검증 → 변경률 가드)은
+자세한 파이프라인(진단 → 장르 판별 → 목표 문체 적용 → 의미 보존 검증 → 변경률 확인)은
 [`SKILL.md`](./skills/korean-plain-writer/SKILL.md)를 참고하세요.
 
 ## 현재 상태 / 다음 단계
@@ -44,7 +44,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - [x] `references/` 5개 파일(어휘 매핑표, 구조 템플릿, 장르 규칙, 조어형 개념어 판별,
       진단 카탈로그 요약)
 - [x] `examples/pairs/` 45쌍 (장르별 15쌍)
-- [x] 변경률 가드 스크립트, 참조 무결성 검사 스크립트
+- [x] 변경률 확인 스크립트, 참조 무결성 검사 스크립트
 - [x] `vendor/humanizer/`에 DaleSeo/korean-skills의 humanizer 스킬 전문 로컬 복사
 - [x] `eval/`: held-out 텍스트 3개(장르별 1개)로 첫 평가 실행, 변경률 임계값이
       korean-plain-writer에는 안 맞는다는 것을 발견하고 재조정(30~50% → 150%,
@@ -53,5 +53,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       사례 비중을 늘리는 게 개수보다 중요)
 - [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
 - [ ] `fabricated-terms.md`의 구성 예시를 실제 겪은 사례로 교체·보강
-- [ ] `eval/holdout/`의 블라인드 A/B 결과를 실제 사람 판단으로 기록 (`eval/results.md`)
+- [x] `eval/holdout/` 3개 블라인드 A/B 1차 결과 기록 (`eval/results.md`, 평가자 1명,
+      3/3 재작성본 선택. 표본이 작아 참고 수준)
+- [ ] 평가자 2명 이상, 이미 자연스러운 원문도 포함해서 2차 라운드 진행
 - [ ] "스킬 미적용 재작성"(naive baseline) 비교군 추가해 스킬 자체의 기여분 측정
