@@ -66,6 +66,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       찾아 들어가는 법 기록, `genre-rules.md`에 장르 공통 원칙(고압적·차별적 표현,
       접속어·조사 정확성, 긍정문, 목록화) 추가
 - [ ] 같은 자료 3부(60~105쪽, 유형별 실제 문서 쓰기, 특히 96쪽 "누리소통망서비스
-      홍보 글 쓰기")도 확인해서 `genre-rules.md` 보강
+      홍보 글 쓰기")도 확인해서 `genre-rules.md` 보강. 로컬 PDF 리더용 추출 프롬프트를
+      `eval/pdf-extraction-prompt.md`에 준비해 둠
 - [ ] 문장 길이 등 간단한 자체 가독성 지표 추가 (한국어 가독성 공식 원문은 KCI 학술
       DB 안에 있어 이번엔 확인 못 함)
