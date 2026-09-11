@@ -1,0 +1,4 @@
+interface:
+  display_name: "한국어 글쓰기 오케스트레이터"
+  short_description: "글의 상황을 분석하고 필요한 교정 단계를 조율합니다"
+  default_prompt: "글의 목적과 독자를 분석하고 필요한 한국어 글쓰기 단계를 선택해 작성하거나 고쳐 주세요."

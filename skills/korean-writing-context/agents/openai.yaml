@@ -1,0 +1,4 @@
+interface:
+  display_name: "한국어 글쓰기 상황 분석"
+  short_description: "글의 목적과 독자, 매체, 격식, 위험도를 분석합니다"
+  default_prompt: "이 글의 목적, 독자, 매체, 격식, 위험도를 짧게 분석해 주세요."
