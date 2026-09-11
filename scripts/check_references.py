@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Verify that file paths mentioned in the skill's own docs actually exist.
+"""Verify that file paths mentioned in the skills' own docs actually exist.
 
-Scans skills/korean-plain-writer/{SKILL.md,references/*.md,examples/**/*.md}
-(everything except the vendored vendor/humanizer/ tree, whose paths are
-relative to its own upstream root, not ours) for backtick-quoted paths that
-look like references to files inside the skill, and checks each one exists
-relative to skills/korean-plain-writer/.
+Scans every first-party skill's SKILL.md and Markdown resources (except vendored
+trees) for backtick-quoted paths and checks each path relative to the document
+that mentions it, then relative to that skill's root for legacy references.
 
 Usage:
     python scripts/check_references.py
@@ -19,12 +17,14 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skills" / "korean-plain-writer"
+SKILLS_ROOT = REPO_ROOT / "skills"
 
 # Require at least one "/": bare filenames ("genre-rules.md" named in prose,
 # or a sibling file cited from within its own directory) are too ambiguous to
 # resolve from a single root, so this only checks multi-segment paths.
-PATH_RE = re.compile(r"`([A-Za-z0-9_\-]+(?:/[A-Za-z0-9_.\-*]*)+)`")
+PATH_RE = re.compile(
+    r"`((?:\.{1,2}/)*[A-Za-z0-9_\-]+(?:/[A-Za-z0-9_.\-*]*)+)`"
+)
 
 SKIP_PREFIXES = ("http://", "https://")
 # Paths inside the vendored tree resolve against its own upstream root, not
@@ -45,23 +45,29 @@ def candidate_paths(text: str) -> set[str]:
     return found
 
 
-def exists_relative_to_skill_root(path: str) -> bool:
+def exists_from_document(md_file: Path, path: str) -> bool:
+    skill_root = next(
+        parent for parent in md_file.parents if parent.parent == SKILLS_ROOT
+    )
     if "*" in path:
-        return len(glob.glob(str(SKILL_ROOT / path))) > 0
-    full = SKILL_ROOT / path
-    return full.exists()
+        return bool(glob.glob(str(md_file.parent / path))) or bool(
+            glob.glob(str(skill_root / path))
+        )
+    return (md_file.parent / path).exists() or (skill_root / path).exists()
 
 
 def main() -> int:
-    md_files = [SKILL_ROOT / "SKILL.md"]
-    md_files += sorted((SKILL_ROOT / "references").glob("*.md"))
-    md_files += sorted((SKILL_ROOT / "examples").rglob("*.md"))
+    md_files = sorted(
+        path
+        for path in SKILLS_ROOT.glob("*/**/*.md")
+        if "vendor" not in path.parts and "eval" not in path.parts
+    )
 
     missing: list[tuple[str, str]] = []
     for md_file in md_files:
         text = md_file.read_text(encoding="utf-8")
         for path in sorted(candidate_paths(text)):
-            if not exists_relative_to_skill_root(path):
+            if not exists_from_document(md_file, path):
                 missing.append((str(md_file.relative_to(REPO_ROOT)), path))
 
     if missing:

@@ -1,15 +1,14 @@
 ---
 name: korean-plain-writer
 description: >
-  한국어로 작성된 AI 생성 텍스트나 어려운 격식체 글을 쉬운 표준 한국어로 재작성합니다.
-  번역투, 명사화, 상투어, 어려운 한자어를 진단(DaleSeo/korean-skills의 humanizer 40패턴 기반)하고,
-  정보 전달형 글은 논리 구조를, 에세이/실용문은 장르별 톤을 적용해 자연스럽게 윤문합니다.
-  "이 글 쉽게 다듬어줘", "AI 티 안 나게 고쳐줘", "표준 한국어로 바꿔줘", "쉬운 말로 풀어줘" 같은
-  요청에 사용하세요.
+  한국어 AI 생성문이나 어려운 격식체를 쉬운 표준 한국어로 재작성한다. 번역투, 명사화,
+  상투어, 어려운 한자어를 진단하고 정보 전달문, 에세이, 실용문의 구조와 톤을 조정한다.
+  "쉽게 다듬어 줘", "AI 티를 없애 줘", "쉬운 말로 풀어 줘" 같은 요청에 사용하며,
+  범용 글쓰기 작업에서는 korean-writing-orchestrator가 선택하는 표현 개선 단계로 사용한다.
 license: MIT
 metadata:
   author: 20211072@edu.hanbat.ac.kr
-  version: 0.1.0
+  version: 0.2.0
 allowed-tools: Read Write Edit Grep Glob
 ---
 
@@ -17,6 +16,10 @@ allowed-tools: Read Write Edit Grep Glob
 
 AI 티 나는 한국어(번역투·명사화·상투어·어려운 한자어)를 없애고, 어떤 주제든 **쉬운 표준
 한국어**로 읽히도록 재작성하는 스킬입니다.
+
+범용 글쓰기 작업의 목적·독자·위험도 판단은 `../korean-writing-context/SKILL.md`에 맡깁니다.
+오케스트레이터가 전달한 상황 프로필이 있으면 이 스킬 자체의 장르 판단보다 우선하며, 수정 뒤에는
+`../korean-writing-validator/SKILL.md`로 최종 검증합니다.
 
 이 스킬은 두 개의 서로 다른 질문에 답합니다.
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "한국어 글쓰기 최종 검증"
+  short_description: "수정문의 의미 보존과 목적 적합성을 마지막에 검증합니다"
+  default_prompt: "원문과 수정문을 비교해 사실과 의미가 보존됐는지, 목적에 맞는지 검증해 주세요."
