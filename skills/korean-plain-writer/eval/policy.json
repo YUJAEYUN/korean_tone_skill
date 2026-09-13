@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "champion_system": "champion",
+  "challenger_system": "challenger",
+  "required_systems": ["source", "naive", "champion", "challenger"],
+  "promotion": {
+    "minimum_pairwise_decisions": 20,
+    "minimum_cases": 6,
+    "minimum_challenger_win_rate": 0.55,
+    "minimum_lower_confidence_bound": 0.50,
+    "maximum_critical_failures": 0,
+    "require_all_strata_represented": true,
+    "minimum_decisions_per_stratum": 2,
+    "minimum_stratum_win_rate": 0.40,
+    "maximum_overedit_rate_regression": 0.05
+  },
+  "static_checks": {
+    "preserve_numbers": true,
+    "preserve_quotes": true
+  },
+  "require_semantic_scores": true,
+  "decision_labels": {
+    "eligible": "eligible_for_human_review",
+    "rejected": "rejected",
+    "insufficient": "insufficient_evidence"
+  }
+}

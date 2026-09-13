@@ -28,6 +28,8 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   - [`references/fabricated-terms.md`](./skills/korean-plain-writer/references/fabricated-terms.md): 조어형 추상 개념어 판별법
 - 예문 뱅크: [`examples/pairs/`](./skills/korean-plain-writer/examples/pairs/) (Before/After, 100~200쌍이 목표이고 지금은 45쌍)
 - 변경률 확인 스크립트: [`scripts/change_rate_check.py`](./skills/korean-plain-writer/scripts/change_rate_check.py)
+- 평가 하네스: [`eval/HARNESS.md`](./skills/korean-plain-writer/eval/HARNESS.md) 및
+  [`scripts/eval_harness.py`](./skills/korean-plain-writer/scripts/eval_harness.py)
 - 참조 무결성 검사: [`scripts/check_references.py`](./scripts/check_references.py) (레포 루트, 스킬 파일들이 서로 가리키는 경로가 실제로 존재하는지 확인)
 - 평가: [`eval/`](./skills/korean-plain-writer/eval/) (예문 뱅크와 겹치지 않는 held-out
   텍스트로 블라인드 A/B + 의미 보존 게이트를 따로 채점. `eval/change-rate-baseline.md`는
@@ -41,8 +43,9 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 4. 구조와 표현을 분리합니다. 수능 비문학은 논리 구조 학습용으로만 쓰고, 문장 표현의
    모범으로는 쓰지 않습니다.
 5. 의미 보존이 최우선입니다. 사실관계·수치·주장 방향은 절대 바꾸지 않습니다.
-6. 남이 이미 잘 만든 구조도 필요한 만큼만 가져옵니다. 우리 규모에 안 맞는 부분(여러
-   에이전트 지원, npm 배포, 벤치마크 스위트 같은 것)까지 통째로 베끼지 않습니다.
+6. 이미 자연스러운 글과 글쓴이의 목소리를 불필요하게 평준화하지 않습니다.
+7. 성능은 원문·단순 프롬프트·현재 버전·후보 버전의 블라인드 비교와 의미 보존 게이트로
+   검증합니다. 개선 AI가 평가 정책이나 비공개 테스트를 바꿀 수 없게 합니다.
 
 전체 파이프라인(상황 분석 → 우선순위 결정 → 전문 스킬 선택 → 순차 수정 → 최종 검증)은
 [`korean-writing-orchestrator/SKILL.md`](./skills/korean-writing-orchestrator/SKILL.md)를 참고하세요.
@@ -61,14 +64,17 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - [x] `eval/`: held-out 텍스트 3개(장르별 1개)로 첫 평가 실행, 변경률 임계값이
       korean-plain-writer에는 안 맞는다는 것을 발견하고 재조정(30~50% → 150%,
       가드가 아니라 참고 수치로 성격 변경)
-- [ ] 예문 뱅크를 100~200쌍으로 마저 확장 (최우선, 현재 45/100~200. 실제 수집된
-      사례 비중을 늘리는 게 개수보다 중요)
+- [ ] 실제 사용에서 나온 익명화 사례와 사용자 A/B 선택을 지속적으로 축적
 - [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
 - [ ] `fabricated-terms.md`의 구성 예시를 실제 겪은 사례로 교체·보강
 - [x] `eval/holdout/` 3개 블라인드 A/B 1차 결과 기록 (`eval/results.md`, 평가자 1명,
       3/3 재작성본 선택. 표본이 작아 참고 수준)
-- [ ] 평가자 2명 이상, 이미 자연스러운 원문도 포함해서 2차 라운드 진행
-- [ ] "스킬 미적용 재작성"(naive baseline) 비교군 추가해 스킬 자체의 기여분 측정
+- [x] 원문·naive·champion·challenger 비교, 결정적 의미 검사, 블라인드 거울쌍,
+      승격 판정과 버전 manifest를 지원하는 평가 하네스 구현
+- [x] 개발 12개·검증 6개 seed 사례에 이미 자연스러운 원문, 조건, 인용, 숫자,
+      불확실성, 반말·존댓말 회귀 범주 포함
+- [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식 실행
+- [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
       스타일/내용/유창성 3축 평가, 사람 평가 모범 사례(van der Lee 외), LLM 채점자
       선례, 국립국어원 공공언어 자료, 한국어 가독성 공식 연구, 쉬운 글 효과 연구
