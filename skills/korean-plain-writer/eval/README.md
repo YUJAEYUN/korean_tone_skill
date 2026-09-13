@@ -67,6 +67,7 @@ S1/S2/S3 개수는 사람 자연스러움의 대리값일 뿐이므로 “자연
 - `policy.json`: 승격 기준
 - `baselines/naive.md`: 스킬 기여분을 재는 고정 단순 프롬프트
 - `judges/`: 의미 게이트와 블라인드 채점 지침
+- `schemas/`: 구조화된 모델 출력을 가져오기 위한 JSON Schema
 - `related-work.md`: 평가 설계의 연구·공식 자료 근거
 - `results.md`: 사람 평가의 역사적 기록
 - `change-rate-baseline.md`: 변경률이 품질 게이트가 될 수 없는 이유

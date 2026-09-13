@@ -85,6 +85,19 @@ manifest에 남긴다.
 집계한다. 품질이 좋아도 실제 사용 비용과 응답 시간이 지나치게 늘어난 후보를 사람이 확인할
 수 있다.
 
+모델이 `schemas/batch-output.schema.json` 형식으로 사례 묶음을 생성했다면 직접 편집하지 않고
+가져올 수 있다.
+
+```bash
+python3 "$HARNESS" import-batch \
+  --cases "$EVAL/cases/validation.jsonl" \
+  --batch naive=/tmp/naive.json \
+  --batch champion=/tmp/champion.json \
+  --batch challenger=/tmp/challenger.json \
+  --trial 1 \
+  --out "$EVAL/runs/pilot/outputs.jsonl"
+```
+
 결정적 검사와 블라인드 용지를 만든다.
 
 ```bash

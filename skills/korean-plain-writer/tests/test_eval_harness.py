@@ -85,6 +85,45 @@ class StaticGraderTests(unittest.TestCase):
             self.assertEqual(score["genre"], "notice")
 
 
+class BatchImportTests(unittest.TestCase):
+    def test_imports_complete_batch_and_source(self):
+        with tempfile.TemporaryDirectory() as raw_dir:
+            root = Path(raw_dir)
+            cases_path = root / "cases.jsonl"
+            batch_path = root / "challenger.json"
+            output_path = root / "outputs.jsonl"
+            HARNESS.write_jsonl(cases_path, [case()])
+            HARNESS.write_json(batch_path, {
+                "outputs": [{"case_id": "case-1", "output": "후보 결과"}],
+                "metadata": {"latency_ms": 100},
+            })
+            args = type("Args", (), {
+                "cases": str(cases_path), "batch": [f"challenger={batch_path}"],
+                "trial": 1, "out": str(output_path),
+            })()
+            HARNESS.command_import_batch(args)
+            rows = HARNESS.read_jsonl(output_path)
+            self.assertEqual({row["system"] for row in rows}, {"source", "challenger"})
+            challenger = next(row for row in rows if row["system"] == "challenger")
+            self.assertEqual(challenger["metadata"]["latency_ms"], 100)
+
+    def test_rejects_incomplete_batch(self):
+        with tempfile.TemporaryDirectory() as raw_dir:
+            root = Path(raw_dir)
+            cases_path = root / "cases.jsonl"
+            batch_path = root / "challenger.json"
+            HARNESS.write_jsonl(cases_path, [case(), case(id="case-2")])
+            HARNESS.write_json(batch_path, {
+                "outputs": [{"case_id": "case-1", "output": "후보 결과"}]
+            })
+            args = type("Args", (), {
+                "cases": str(cases_path), "batch": [f"challenger={batch_path}"],
+                "trial": 1, "out": str(root / "outputs.jsonl"),
+            })()
+            with self.assertRaises(HARNESS.HarnessError):
+                HARNESS.command_import_batch(args)
+
+
 class BlindAndReportTests(unittest.TestCase):
     def test_ballot_hides_system_names_and_report_maps_votes(self):
         with tempfile.TemporaryDirectory() as raw_dir:

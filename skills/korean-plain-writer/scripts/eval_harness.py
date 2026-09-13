@@ -314,6 +314,45 @@ def command_static(args: argparse.Namespace) -> None:
     print(f"graded {len(grades)} outputs: {failures} critical failures, {warnings} over-edit warnings")
 
 
+def command_import_batch(args: argparse.Namespace) -> None:
+    cases = read_jsonl(Path(args.cases))
+    validate_cases(cases)
+    case_ids = {case["id"] for case in cases}
+    rows = [
+        {
+            "case_id": case["id"], "system": "source", "trial": args.trial,
+            "output": case["input"], "metadata": {},
+        }
+        for case in cases
+    ]
+    for specification in args.batch:
+        if "=" not in specification:
+            raise HarnessError(f"batch must use system=path: {specification}")
+        system, raw_path = specification.split("=", 1)
+        payload = read_json(Path(raw_path))
+        outputs = payload.get("outputs") if isinstance(payload, dict) else None
+        if not isinstance(outputs, list):
+            raise HarnessError(f"{raw_path}: expected an outputs array")
+        seen: set[str] = set()
+        for item in outputs:
+            if not isinstance(item, dict) or not isinstance(item.get("output"), str):
+                raise HarnessError(f"{raw_path}: invalid output item")
+            case_id = item.get("case_id")
+            if case_id not in case_ids or case_id in seen:
+                raise HarnessError(f"{raw_path}: unknown or duplicate case_id {case_id}")
+            seen.add(case_id)
+            rows.append({
+                "case_id": case_id, "system": system, "trial": args.trial,
+                "output": item["output"], "metadata": payload.get("metadata", {}),
+            })
+        missing = case_ids - seen
+        if missing:
+            raise HarnessError(f"{raw_path}: missing cases {sorted(missing)}")
+    validate_outputs(rows, case_ids)
+    write_jsonl(Path(args.out), rows)
+    print(f"imported {len(rows)} outputs for trial {args.trial}")
+
+
 def stable_id(*parts: str) -> str:
     return hashlib.sha256("\x1f".join(parts).encode()).hexdigest()[:20]
 
@@ -731,6 +770,15 @@ def build_parser() -> argparse.ArgumentParser:
     static.add_argument("--policy", required=True)
     static.add_argument("--out", required=True)
     static.set_defaults(func=command_static)
+
+    import_batch = subparsers.add_parser(
+        "import-batch", help="merge structured batch generations into outputs JSONL"
+    )
+    import_batch.add_argument("--cases", required=True)
+    import_batch.add_argument("--batch", action="append", required=True, metavar="SYSTEM=PATH")
+    import_batch.add_argument("--trial", type=int, default=1)
+    import_batch.add_argument("--out", required=True)
+    import_batch.set_defaults(func=command_import_batch)
 
     blind = subparsers.add_parser("make-blind", help="create randomized pairwise ballots")
     blind.add_argument("--cases", required=True)

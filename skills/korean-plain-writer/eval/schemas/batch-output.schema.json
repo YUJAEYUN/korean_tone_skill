@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["outputs"],
+  "additionalProperties": false,
+  "properties": {
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["case_id", "output"],
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {"type": "string"},
+          "output": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
+
