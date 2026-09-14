@@ -34,6 +34,8 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - 평가: [`eval/`](./skills/korean-plain-writer/eval/) (예문 뱅크와 겹치지 않는 held-out
   텍스트로 블라인드 A/B + 의미 보존 게이트를 따로 채점. `eval/change-rate-baseline.md`는
   변경률 임계값을 재조정한 실측 근거)
+- 릴리즈 노트: [`CHANGELOG.md`](./skills/korean-plain-writer/CHANGELOG.md) (승격할 때마다
+  뭐가·왜 바뀌었는지, 어떤 근거로 검증했는지 기록)
 
 ## 설계 원칙
 
