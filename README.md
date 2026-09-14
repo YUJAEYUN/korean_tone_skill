@@ -105,7 +105,13 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       `judges/composition-quality-rubric.md`(구조가 내용에 봉사하는가/논지의
       진짜 흐름/확신-구체성 일치/반론 처리/독자 행동가능성 5항), 결정론적
       리듬 검사(`rhythm_stats`: 문장 길이 변동계수, `scan_composition_cliches`:
-      상투적 도입·마무리)를 갖춤. 임계값 미실측, 첫 실행 전 — 인프라만 있는 단계
+      상투적 도입·마무리)를 갖춤
+- [x] 첫 파일럿 실행 (`korean-writing-orchestrator/eval/runs/2026-09-14-champion-vs-naive/`):
+      champion(프로세스 적용) vs naive 4사례, champion 4승. 리듬 변동계수가 예상과
+      다르게 나와("균일하게 짧음"과 "메트로놈 리듬"을 CV 하나로 구분 못 함)
+      임계값 미설정 결정이 맞았음을 확인. must_preserve 리터럴 불일치로 중대 실패
+      1건도 발견(의미는 맞지만 문자열이 정확히 안 맞음, `korean-plain-writer`
+      파일럿의 val-policy-01과 같은 패턴). 자기채점 파일럿이라 표본 작음
 - [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의

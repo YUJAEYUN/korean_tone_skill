@@ -1,0 +1,8 @@
+{"case_id": "orch-essay-01", "comparison_id": "e072ca43f0b014d7e6f6", "genre": "에세이", "left_system": "champion", "pair_id": "e8094ba1b6313f738569", "right_system": "naive", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-essay-01", "comparison_id": "e072ca43f0b014d7e6f6", "genre": "에세이", "left_system": "naive", "pair_id": "6c1fc957eb50380e38b6", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-notice-01", "comparison_id": "bcd8e1f5412a1f765cfe", "genre": "공지", "left_system": "naive", "pair_id": "df603aba8b2dd790e009", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-notice-01", "comparison_id": "bcd8e1f5412a1f765cfe", "genre": "공지", "left_system": "champion", "pair_id": "444670bb2de05961daaf", "right_system": "naive", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-persuade-01", "comparison_id": "6ec8b7a5ac9280f38b9f", "genre": "제안서", "left_system": "naive", "pair_id": "34b7c9bbec5a065c30ea", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-persuade-01", "comparison_id": "6ec8b7a5ac9280f38b9f", "genre": "제안서", "left_system": "champion", "pair_id": "99e9d5095bfe8b870535", "right_system": "naive", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-report-01", "comparison_id": "4af0b3f7f75e5f41c42c", "genre": "보고", "left_system": "naive", "pair_id": "2394c3eef9f8ee6abc40", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "orch-report-01", "comparison_id": "4af0b3f7f75e5f41c42c", "genre": "보고", "left_system": "champion", "pair_id": "3257308c360cf4e9b89c", "right_system": "naive", "source_quality": "mixed", "trial": 1}

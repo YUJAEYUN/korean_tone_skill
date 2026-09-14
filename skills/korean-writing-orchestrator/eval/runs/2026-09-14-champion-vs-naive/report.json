@@ -1,0 +1,92 @@
+{
+  "baseline": "naive",
+  "by_genre": {
+    "공지": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    },
+    "보고": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    },
+    "에세이": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    },
+    "제안서": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    }
+  },
+  "candidate": "champion",
+  "case_preference": {
+    "baseline_wins": 0,
+    "candidate_win_rate": 1.0,
+    "candidate_wins": 4,
+    "cases": 4,
+    "confidence_interval": [
+      0.5100999795960008,
+      1.0
+    ],
+    "decided_cases": 4,
+    "ties": 0
+  },
+  "critical_gate": {
+    "challenger_critical_failures": 1,
+    "missing_semantic_scores": 0,
+    "missing_static_scores": 0
+  },
+  "decision": "comparison_only",
+  "operational": {
+    "baseline": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    },
+    "candidate": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    }
+  },
+  "overediting": {
+    "baseline_warning_rate": null,
+    "candidate_warning_rate": null
+  },
+  "pairwise_preference": {
+    "baseline_wins": 0,
+    "candidate_win_rate": 1.0,
+    "candidate_wins": 4,
+    "comparisons": 4,
+    "confidence_interval": [
+      0.5100999795960008,
+      1.0
+    ],
+    "decisions": 4,
+    "ties": 0
+  },
+  "reasons": [
+    "유효 비교 4건으로 최소 20건에 못 미친다.",
+    "유효 사례 4개로 최소 6개에 못 미친다.",
+    "장르별 최소 비교 수가 부족하다: 공지, 보고, 에세이, 제안서",
+    "후보의 중대 실패 1건이 허용치 0건을 넘었다.",
+    "현재 버전과 후보의 승격 비교가 아니므로 참고 비교로만 기록한다."
+  ],
+  "schema_version": 1
+}
