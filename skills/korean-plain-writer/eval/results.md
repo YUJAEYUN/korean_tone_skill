@@ -3,6 +3,28 @@
 `eval/README.md`의 방식대로, 라벨을 가린 채 사람에게 원문과 재작성본 중 어느 쪽이
 더 자연스러운지 고르게 한 기록입니다. 날짜순으로 아래에 계속 추가합니다.
 
+## 2026-09-14: 개선 라운드 1 (시제·상 체크리스트 항목, champion vs challenger)
+
+전체 기록은 `eval/runs/2026-09-14-round1-tense-aspect/`에 있습니다.
+
+- 가설: 4단계 의미 보존 체크리스트가 시제·상(진행/완료)을 명시적으로 점검하지
+  않아, "쉬운 말로" 다듬다가 "~하고 있다"류 진행형을 지우면서 "아직 하는 중"이
+  "이미 끝난 일"처럼 읽힐 수 있다.
+- 변경: SKILL.md 4단계 체크리스트에 9번째 항목(시제·상 보존)만 추가. 다른 규칙,
+  어휘 매핑표, 장르 규칙은 건드리지 않음(`challenger.diff` 참고).
+- 결과: 이 라운드를 시작하기 전에 지난 파일럿에서 이미 본 `validation.jsonl` 6개
+  사례를 `dev.jsonl`로 옮기고 새 6개(`val2-*`)로 교체했습니다(개선 프로토콜의
+  validation 회전 규칙). 가설을 직접 겨냥한 2개 사례(`val2-tense-01`,
+  `val2-casual-01`)에서 challenger 2승 0패, 0건 중대 실패. 무관한 4개 사례는
+  champion과 challenger가 완전히 동일한 출력을 내 회귀 없음의 첫 신호를 보였습니다.
+  판정은 `insufficient_evidence`(정책 기준 표본 미달) — 표본이 작을 때 나와야
+  하는 정상적인 결과입니다.
+- **라이브 스킬(`skills/korean-plain-writer/SKILL.md`)은 아직 고치지 않았습니다.**
+  challenger는 별도 스냅샷(`challenger-skill/`)으로만 존재하며, 사람이 diff와
+  경계 사례를 확인하고 승격을 결정하기 전까지 반영하지 않습니다.
+- 이번에도 가설 수립·challenger 편집·채점을 모두 같은 세션이 해서 자기채점입니다.
+  독립 채점자로 반복하기 전까지는 참고 신호입니다.
+
 ## 2026-09-14: 하네스 첫 정식 실행 (champion vs naive, 파일럿, 자기채점)
 
 전체 기록은 `eval/runs/2026-09-14-champion-vs-naive/README.md`와 `report.md`에

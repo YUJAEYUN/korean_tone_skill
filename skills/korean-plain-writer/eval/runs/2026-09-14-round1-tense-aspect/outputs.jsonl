@@ -1,0 +1,12 @@
+{"case_id": "val2-natural-01", "metadata": {}, "output": "버스를 기다리다가 문득 어릴 때 살던 동네가 생각났다. 그때는 골목이 이렇게 좁은 줄 몰랐다.", "system": "champion", "trial": 1}
+{"case_id": "val2-natural-01", "metadata": {}, "output": "버스를 기다리다가 문득 어릴 때 살던 동네가 생각났다. 그때는 골목이 이렇게 좁은 줄 몰랐다.", "system": "challenger", "trial": 1}
+{"case_id": "val2-notice-01", "metadata": {}, "output": "신청서는 방문 접수만 가능합니다. 다만 거동이 불편함을 증명하는 서류를 제출한 경우에는 우편 접수를 허용합니다.", "system": "champion", "trial": 1}
+{"case_id": "val2-notice-01", "metadata": {}, "output": "신청서는 방문 접수만 가능합니다. 다만 거동이 불편함을 증명하는 서류를 제출한 경우에는 우편 접수를 허용합니다.", "system": "challenger", "trial": 1}
+{"case_id": "val2-quote-01", "metadata": {}, "output": "박서준 팀장은 \"아직 최종 결정은 내려지지 않았습니다\"라고 말했다. 발표는 다음 달 초로 예정되어 있다.", "system": "champion", "trial": 1}
+{"case_id": "val2-quote-01", "metadata": {}, "output": "박서준 팀장은 \"아직 최종 결정은 내려지지 않았습니다\"라고 말했다. 발표는 다음 달 초로 예정되어 있다.", "system": "challenger", "trial": 1}
+{"case_id": "val2-email-01", "metadata": {}, "output": "말씀하신 일정 확인했습니다. 내부 회의 후 내일 오후까지 다시 연락드리겠습니다.", "system": "champion", "trial": 1}
+{"case_id": "val2-email-01", "metadata": {}, "output": "말씀하신 일정 확인했습니다. 내부 회의 후 내일 오후까지 다시 연락드리겠습니다.", "system": "challenger", "trial": 1}
+{"case_id": "val2-tense-01", "metadata": {}, "output": "이 시스템은 지금 세 개 지역에서 시범적으로 운영한다. 내년부터는 전국으로 넓힐 예정이다.", "system": "champion", "trial": 1}
+{"case_id": "val2-casual-01", "metadata": {}, "output": "그 문제를 계속 생각해봤어. 아직 답을 못 찾아서 시간이 좀 더 필요할 것 같아.", "system": "champion", "trial": 1}
+{"case_id": "val2-tense-01", "metadata": {}, "output": "이 시스템은 지금 세 개 지역에서 시범적으로 운영되고 있다. 내년부터는 전국으로 넓힐 예정이다.", "system": "challenger", "trial": 1}
+{"case_id": "val2-casual-01", "metadata": {}, "output": "그 문제를 계속 생각하고 있어. 아직 답을 못 찾아서 시간이 좀 더 필요할 것 같아.", "system": "challenger", "trial": 1}

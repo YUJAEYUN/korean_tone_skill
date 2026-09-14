@@ -1,0 +1,12 @@
+{"confidence": "medium", "judge_id": "llm-self-judge-01", "pair_id": "6d5f9a032ba39408677b", "reason": "왼쪽('생각하고 있어')은 '아직 시간이 필요하다'는 원문의 진행 중 뉘앙스를 유지한다. 오른쪽('생각해봤어')은 완료된 시도처럼 읽혀 미묘하게 다르다.", "reason_tags": ["meaning", "naturalness"], "winner": "left"}
+{"confidence": "medium", "judge_id": "llm-self-judge-01", "pair_id": "e2b784aefb510a9dc490", "reason": "오른쪽('생각하고 있어')이 진행 중 뉘앙스를 유지한다. 왼쪽('생각해봤어')은 완료된 시도처럼 읽힌다.", "reason_tags": ["meaning", "naturalness"], "winner": "right"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "d8d4d8bccdb19b45dce9", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "0069039c2d9561fc292c", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "8d72a0db83a1833852f6", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "f885f8bcee5e2981e2ba", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "10e58bcdd9bc3c093c9f", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "119abb518b904cfdbd36", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "3265163a402837d8482c", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "edd8884ebaa8b7343613", "reason": "두 결과가 문자 그대로 동일하다.", "reason_tags": [], "winner": "tie"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "811ba2dc51c5bcdf7e36", "reason": "지시문이 '진행 중인지 이미 끝난 일인지 흐려지지 않게'를 명시했다. 왼쪽('운영한다')은 일반 사실처럼 읽혀 시범 운영 중이라는 진행상이 흐려진다. 오른쪽('운영되고 있다')은 유지한다.", "reason_tags": ["meaning", "instruction"], "winner": "right"}
+{"confidence": "high", "judge_id": "llm-self-judge-01", "pair_id": "cca7793345c6473b0766", "reason": "왼쪽('운영되고 있다')이 진행상을 유지한다. 오른쪽('운영한다')은 일반 사실처럼 읽혀 진행상이 흐려진다.", "reason_tags": ["meaning", "instruction"], "winner": "left"}
