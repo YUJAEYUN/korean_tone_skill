@@ -160,26 +160,47 @@ CLICHE_CLOSERS = [
 
 
 def sentence_lengths(text: str) -> list[int]:
+    """Word count (어절, whitespace-delimited tokens) per sentence.
+
+    AI-text-detection writeups on "burstiness" (e.g. GPTZero-style tools)
+    measure sentence length in words, not characters -- a human academic
+    sample reported sentence-length stdev of 8.2 words vs 4.1 for GPT-4o
+    output. 어절 count is the standard proxy for "words" in Korean when no
+    real morphological tokenizer is available.
+    """
     sentences = [s.strip() for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
-    return [len(normalize_text(s)) for s in sentences]
+    return [len(normalize_text(s).split()) for s in sentences]
 
 
 def rhythm_stats(text: str) -> dict[str, Any]:
-    """Character-length variation across sentences (a burstiness proxy).
+    """Sentence-length variation across a text (a burstiness proxy).
 
     No pass/fail threshold yet -- this is diagnostic only, like change_ratio
     was before change-rate-baseline.md calibrated it against 45 real
-    examples. Report the coefficient of variation (stdev/mean) so a future
-    round can set a real threshold from measured essay/notice/email samples
-    instead of a guessed number. Low CV == unusually uniform sentence
-    lengths, one of the "AI rhythm" signals discussed with the user; high CV
-    is the "bursty" pattern associated with human writing.
+    examples.
+
+    Reports two related numbers:
+    - coefficient_of_variation (stdev/mean): easy to read, but unbounded and
+      conflates "evenly short" with "evenly medium" -- the
+      2026-09-14-champion-vs-naive orchestrator pilot hit exactly this: a
+      terse, well-written champion output scored LOWER CV than a padded
+      naive one, the opposite of what "AI is more metronomic" predicts.
+    - burstiness (Goh & Barabási 2008, Phys. Rev. E 94, 032311):
+      B = (stdev - mean) / (stdev + mean), bounded to [-1, 1]. B -> -1 for
+      perfectly regular spacing, B = 0 for Poisson-random, B -> 1 for
+      extremely bursty. Originally defined for inter-event time gaps, not
+      sentence lengths within one short document -- applying it here is our
+      own adaptation, not itself a validated Korean-AI-text signal the way
+      the vendor/humanizer punctuation patterns are (those cite a measured
+      94.88% AUC; this doesn't). Report `mean_length` alongside both numbers
+      so a reader isn't left guessing whether a low burstiness score means
+      "suspiciously uniform" or just "consistently short and fine."
     """
     lengths = sentence_lengths(text)
     if len(lengths) < 3:
         return {
-            "sentence_count": len(lengths), "mean_length": None,
-            "stdev": None, "coefficient_of_variation": None,
+            "sentence_count": len(lengths), "mean_length": None, "stdev": None,
+            "coefficient_of_variation": None, "burstiness": None,
             "note": "문장이 3개 미만이라 리듬 변동을 측정하기엔 표본이 너무 작음",
         }
     mean = statistics.mean(lengths)
@@ -189,6 +210,7 @@ def rhythm_stats(text: str) -> dict[str, Any]:
         "mean_length": round(mean, 1),
         "stdev": round(stdev, 1),
         "coefficient_of_variation": round(stdev / mean, 3) if mean else None,
+        "burstiness": round((stdev - mean) / (stdev + mean), 3) if (stdev + mean) else None,
     }
 
 

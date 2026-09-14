@@ -57,10 +57,18 @@
 
 코드 검사는 `../../korean-plain-writer/scripts/eval_harness.py`의 `rhythm_stats`,
 `scan_composition_cliches`를 그대로 쓴다(스크립트를 복제하지 않고 `--skill-root`만
-이 스킬로 바꿔 호출한다. `HARNESS.md` 참고). **리듬 변동계수는 아직 임계값이
-없다** — `../../korean-plain-writer/eval/change-rate-baseline.md`가 예문 45개를
-실측해 150% 기준을 잡았던 것처럼, 실제 사람이 쓴 글과 AI가 쓴 글 표본을 모아 재본
-뒤에 기준을 정해야 한다. 지금은 숫자만 보여주는 진단 지표다.
+이 스킬로 바꿔 호출한다. `HARNESS.md` 참고). `rhythm_stats`는 문장 길이를
+단어(어절) 수로 재고, 변동계수(CV)와 함께 Goh·Barabási(2008, Phys. Rev. E 94,
+032311)의 burstiness 공식 `B = (stdev-mean)/(stdev+mean)`(범위 [-1, 1])을 낸다.
+원래 사건 간 시간 간격을 재는 공식을 문장 길이에 적용한 것이라 이 자체가
+검증된 한국어 AI체 신호는 아니다 — `vendor/humanizer`의 문장부호 패턴처럼 AUC로
+실측된 근거는 없다. **임계값도 아직 없다** —
+`../../korean-plain-writer/eval/change-rate-baseline.md`가 예문 45개를 실측해
+150% 기준을 잡았던 것처럼, 실제 사람이 쓴 글과 AI가 쓴 글 표본을 모아 재본 뒤에
+기준을 정해야 한다. 지금은 숫자만 보여주는 진단 지표다. 첫 파일럿(`runs/
+2026-09-14-champion-vs-naive/`)에서 이미 CV/B만으로는 "고르게 짧고 좋은 글"과
+"메트로놈처럼 반복되는 AI체"를 구분 못 한다는 게 드러나서, `mean_length`를 항상
+같이 봐야 한다.
 
 LLM 채점 기준은 `judges/composition-quality-rubric.md`.
 

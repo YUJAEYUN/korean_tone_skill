@@ -123,15 +123,24 @@ class CompositionRhythmTests(unittest.TestCase):
         result = HARNESS.rhythm_stats(metronomic)
         self.assertEqual(result["sentence_count"], 3)
         self.assertLess(result["coefficient_of_variation"], 0.1)
+        # perfectly equal word counts per sentence -> Goh-Barabasi B == -1 (maximally regular)
+        self.assertEqual(result["burstiness"], -1.0)
 
     def test_bursty_sentence_lengths_yield_higher_cv(self):
         bursty = "비가 왔다. 그래서 나는 우산을 챙기고 장화를 신고 집을 나섰다. 젖었다."
         result = HARNESS.rhythm_stats(bursty)
         self.assertGreater(result["coefficient_of_variation"], 0.3)
+        self.assertIsNotNone(result["burstiness"])
 
     def test_too_few_sentences_reports_none(self):
         result = HARNESS.rhythm_stats("한 문장뿐이다.")
         self.assertIsNone(result["coefficient_of_variation"])
+        self.assertIsNone(result["burstiness"])
+
+    def test_length_is_word_count_not_character_count(self):
+        # "나는 밥을 먹었다" is 3 어절/13 chars; sentence_lengths must report 3, not 13
+        lengths = HARNESS.sentence_lengths("나는 밥을 먹었다.")
+        self.assertEqual(lengths, [3])
 
     def test_flags_cliche_opener_and_closer(self):
         text = "오늘날 우리는 빠른 변화 속에 살고 있다. 이처럼 기술은 삶을 바꾸어 왔다는 것을 알 수 있었다."
