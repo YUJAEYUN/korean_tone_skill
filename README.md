@@ -73,7 +73,12 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       승격 판정과 버전 manifest를 지원하는 평가 하네스 구현
 - [x] 개발 12개·검증 6개 seed 사례에 이미 자연스러운 원문, 조건, 인용, 숫자,
       불확실성, 반말·존댓말 회귀 범주 포함
-- [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식 실행
+- [x] 하네스 파이프라인(validate→scaffold→static-grade→make-blind→report) 첫
+      실제 실행 (`eval/runs/2026-09-14-champion-vs-naive/`). champion vs naive
+      비교 5건 중 5승, naive 2건 결정적 실패·3건 의미 게이트 실패 관측.
+      **단, 생성과 채점을 같은 세션이 해서 자기채점이며 표본도 6개뿐** — 정식
+      실행이 아니라 하네스가 실제로 도는지 확인한 파일럿
+- [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
       스타일/내용/유창성 3축 평가, 사람 평가 모범 사례(van der Lee 외), LLM 채점자
