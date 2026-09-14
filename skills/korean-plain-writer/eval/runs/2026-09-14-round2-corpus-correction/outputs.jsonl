@@ -1,0 +1,6 @@
+{"case_id": "val3-report-01", "metadata": {}, "output": "이번 정책 변화에 전문가들은 신중한 입장을 보였다. 시장 반응에도 아직 뚜렷한 신호가 없다.", "system": "champion", "trial": 1}
+{"case_id": "val3-report-01", "metadata": {}, "output": "이번 정책 변화에 대해 전문가들은 신중한 입장을 보였다. 시장 반응에 대해서도 아직 뚜렷한 신호가 없다.", "system": "challenger", "trial": 1}
+{"case_id": "val3-analysis-01", "metadata": {}, "output": "설문 조사를 통해 소비자 선호 변화를 확인했다. 이 자료를 통해 다음 분기 전략도 다시 짤 계획이다.", "system": "champion", "trial": 1}
+{"case_id": "val3-analysis-01", "metadata": {}, "output": "설문 조사를 통해 소비자 선호 변화를 확인했다. 이 자료를 통해 다음 분기 전략도 다시 짤 계획이다.", "system": "challenger", "trial": 1}
+{"case_id": "val3-opinion-01", "metadata": {}, "output": "이번 결정으로 매출이 늘어날 것이다. 다만 초기에는 비용 부담도 함께 커질 것이다.", "system": "champion", "trial": 1}
+{"case_id": "val3-opinion-01", "metadata": {}, "output": "이번 결정으로 매출이 늘어날 것이다. 다만 초기에는 비용 부담도 함께 커질 것이다.", "system": "challenger", "trial": 1}

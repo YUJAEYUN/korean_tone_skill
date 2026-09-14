@@ -1,0 +1,6 @@
+{"confidence": "high", "judge_id": "independent-opus", "pair_id": "ffa62b79b7321321f5c2", "reason": "두 결과가 글자 그대로 동일하여 품질 차이를 구분할 근거가 없다.", "reason_tags": ["meaning", "naturalness"], "winner": "tie"}
+{"confidence": "high", "judge_id": "independent-opus", "pair_id": "76abf01915f8cd22b588", "reason": "좌우 문장이 완전히 같아 우열을 가릴 수 없다.", "reason_tags": ["meaning", "naturalness"], "winner": "tie"}
+{"confidence": "high", "judge_id": "independent-opus", "pair_id": "4bdc8df19710422fa58a", "reason": "두 후보 모두 원문과 동일한 문장이어서 차이가 없다.", "reason_tags": ["meaning", "naturalness"], "winner": "tie"}
+{"confidence": "high", "judge_id": "independent-opus", "pair_id": "01ac2c59f8cb18e8624d", "reason": "좌우 텍스트가 동일하므로 어느 쪽도 더 낫다고 할 수 없다.", "reason_tags": ["meaning", "naturalness"], "winner": "tie"}
+{"confidence": "medium", "judge_id": "independent-opus", "pair_id": "e929e6eaf83a6d78fe90", "reason": "왼쪽은 반복되던 번역투 '~에 대해/~에 대해서도'를 덜어내 더 쉽게 읽히면서도 사실과 신중한 어조를 그대로 유지했고, 오른쪽은 원문을 전혀 다듬지 않아 요청을 이행하지 못했다.", "reason_tags": ["naturalness", "fluency"], "winner": "left"}
+{"confidence": "medium", "judge_id": "independent-opus", "pair_id": "42454b7a7fc41231f2e2", "reason": "오른쪽은 '~에 대해' 군더더기를 정리해 문장이 한 번에 읽히고 의미 손실도 없으나, 왼쪽은 원문 그대로여서 '쉬운 문장으로 다듬기' 요청에 응답하지 않았다.", "reason_tags": ["naturalness", "fluency"], "winner": "right"}

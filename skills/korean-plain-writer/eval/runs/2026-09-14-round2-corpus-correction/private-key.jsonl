@@ -1,0 +1,6 @@
+{"case_id": "val3-analysis-01", "comparison_id": "5e42f7cc0bacd64064e9", "genre": "informational", "left_system": "challenger", "pair_id": "ffa62b79b7321321f5c2", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "val3-analysis-01", "comparison_id": "5e42f7cc0bacd64064e9", "genre": "informational", "left_system": "champion", "pair_id": "76abf01915f8cd22b588", "right_system": "challenger", "source_quality": "mixed", "trial": 1}
+{"case_id": "val3-opinion-01", "comparison_id": "8d4d66dd53ab4360ef17", "genre": "essay", "left_system": "champion", "pair_id": "4bdc8df19710422fa58a", "right_system": "challenger", "source_quality": "mixed", "trial": 1}
+{"case_id": "val3-opinion-01", "comparison_id": "8d4d66dd53ab4360ef17", "genre": "essay", "left_system": "challenger", "pair_id": "01ac2c59f8cb18e8624d", "right_system": "champion", "source_quality": "mixed", "trial": 1}
+{"case_id": "val3-report-01", "comparison_id": "7d55c1ab7f04d4272c61", "genre": "informational", "left_system": "champion", "pair_id": "e929e6eaf83a6d78fe90", "right_system": "challenger", "source_quality": "mixed", "trial": 1}
+{"case_id": "val3-report-01", "comparison_id": "7d55c1ab7f04d4272c61", "genre": "informational", "left_system": "challenger", "pair_id": "42454b7a7fc41231f2e2", "right_system": "champion", "source_quality": "mixed", "trial": 1}

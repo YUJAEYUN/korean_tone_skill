@@ -1,0 +1,78 @@
+{
+  "baseline": "champion",
+  "by_genre": {
+    "essay": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 0,
+      "ties": 1
+    },
+    "informational": {
+      "baseline_wins": 1,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 1,
+      "ties": 1
+    }
+  },
+  "candidate": "challenger",
+  "case_preference": {
+    "baseline_wins": 1,
+    "candidate_win_rate": 0.0,
+    "candidate_wins": 0,
+    "cases": 1,
+    "confidence_interval": [
+      0.0,
+      0.7934567085261071
+    ],
+    "decided_cases": 1,
+    "ties": 0
+  },
+  "critical_gate": {
+    "challenger_critical_failures": 0,
+    "missing_semantic_scores": 0,
+    "missing_static_scores": 0
+  },
+  "decision": "rejected",
+  "operational": {
+    "baseline": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    },
+    "candidate": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    }
+  },
+  "overediting": {
+    "baseline_warning_rate": null,
+    "candidate_warning_rate": null
+  },
+  "pairwise_preference": {
+    "baseline_wins": 1,
+    "candidate_win_rate": 0.0,
+    "candidate_wins": 0,
+    "comparisons": 3,
+    "confidence_interval": [
+      0.0,
+      0.7934567085261071
+    ],
+    "decisions": 1,
+    "ties": 2
+  },
+  "reasons": [
+    "유효 비교 1건으로 최소 20건에 못 미친다.",
+    "유효 사례 1개로 최소 6개에 못 미친다.",
+    "장르별 최소 비교 수가 부족하다: essay, informational",
+    "후보 승률 0.0%가 기준 55.0%보다 낮다.",
+    "사례 단위 후보 승률의 95% 하한 0.0%가 기준 50.0%보다 낮다."
+  ],
+  "schema_version": 1
+}
