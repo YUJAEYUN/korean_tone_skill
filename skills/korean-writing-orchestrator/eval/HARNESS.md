@@ -36,11 +36,12 @@ python3 "$HARNESS" scaffold \
   `../../korean-plain-writer/eval/fluency-rubric.md`(유창성)는 그대로 재사용한다 —
   여기서 다시 만들지 않는다.
 - **결정론적 검사**: `policy.json`이 `scan_composition_patterns: true`를 켜 둬서
-  `static-grade`가 `rhythm`(문장 길이 변동계수)과 `composition_cliches`(상투적
-  도입/마무리)도 함께 채점한다. `korean-plain-writer`는 이 플래그가 꺼져 있어서
-  영향받지 않는다.
+  `static-grade`가 `rhythm`(문장 길이를 단어 수로 잰 변동계수·Goh-Barabási
+  burstiness)과 `composition_cliches`(상투적 도입/마무리)도 함께 채점한다.
+  `korean-plain-writer`는 이 플래그가 꺼져 있어서 영향받지 않는다.
 
 ## 현재 상태
 
-이 디렉터리는 인프라만 있고 아직 한 번도 실행하지 않았다(`runs/`가 비어 있다).
-`README.md`에 다음 단계를 적어 뒀다.
+첫 파일럿(`runs/2026-09-14-champion-vs-naive/`)을 실행했다. `README.md`에 결과와
+다음 단계를 적어 뒀다. `../../korean-plain-writer/eval/HARNESS.md`의 "독립 채점자
+확보"·"채점 데이터를 다룰 때 반드시 지킬 것" 절은 이 스킬에도 그대로 적용된다.
