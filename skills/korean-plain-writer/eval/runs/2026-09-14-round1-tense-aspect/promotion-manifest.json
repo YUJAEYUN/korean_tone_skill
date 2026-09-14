@@ -1,0 +1,16 @@
+{
+  "approved_by": "20211072@edu.hanbat.ac.kr",
+  "from_version": "0.2.0",
+  "git_commit_being_promoted_from": "77b6afcf92eb7c9eedf2e84b0dc4e25716a28a21",
+  "promoted_at": "2026-09-14T05:33:28.090364+00:00",
+  "promotion_basis": {
+    "challenger_diff": "skills/korean-plain-writer/eval/runs/2026-09-14-round1-tense-aspect/challenger.diff",
+    "decision_label": "insufficient_evidence",
+    "note": "자동 기준(유효 비교 20건, 사례 6개 이상)을 충족하지 못해 report.json은 insufficient_evidence를 내었다. 사람(20211072@edu.hanbat.ac.kr)이 challenger.diff와 report.md를 직접 검토한 뒤, 가설을 겨냥한 2개 사례(val2-tense-01, val2-casual-01) 모두 이기고 무관한 4개 사례는 완전히 동일한 출력을 낸 것(회귀 없음)을 근거로 수동 승격하기로 결정했다. 이는 정책 임계값을 낮춰 통과 처리한 것이 아니라, 사람이 표본 부족을 알고도 직접 승인한 사례다.",
+    "run_dir": "skills/korean-plain-writer/eval/runs/2026-09-14-round1-tense-aspect"
+  },
+  "round": "2026-09-14-round1-tense-aspect",
+  "schema_version": 1,
+  "skill_tree_sha256_after_promotion": "92819071d784e8c88d22fff916bc2f5996c5f0e030bc62e9603dc1a11e433576",
+  "to_version": "0.2.1"
+}

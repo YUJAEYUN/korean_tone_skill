@@ -24,6 +24,11 @@
   경계 사례를 확인하고 승격을 결정하기 전까지 반영하지 않습니다.
 - 이번에도 가설 수립·challenger 편집·채점을 모두 같은 세션이 해서 자기채점입니다.
   독립 채점자로 반복하기 전까지는 참고 신호입니다.
+- **승격**: 사람이 diff와 사례를 직접 검토한 뒤 승격을 승인했습니다.
+  `skills/korean-plain-writer/SKILL.md` v0.2.0 → v0.2.1. `report.json`의
+  자동 판정은 여전히 `insufficient_evidence`이며, 정책 임계값을 낮추지 않고
+  사람이 표본 부족을 알고도 수동으로 승인한 것입니다
+  (`eval/runs/2026-09-14-round1-tense-aspect/promotion-manifest.json` 참고).
 
 ## 2026-09-14: 하네스 첫 정식 실행 (champion vs naive, 파일럿, 자기채점)
 

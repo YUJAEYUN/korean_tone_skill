@@ -78,11 +78,13 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       비교 5건 중 5승, naive 2건 결정적 실패·3건 의미 게이트 실패 관측.
       **단, 생성과 채점을 같은 세션이 해서 자기채점이며 표본도 6개뿐** — 정식
       실행이 아니라 하네스가 실제로 도는지 확인한 파일럿
-- [x] 첫 개선 라운드 실행 (`eval/runs/2026-09-14-round1-tense-aspect/`):
+- [x] 첫 개선 라운드 실행 및 승격 (`eval/runs/2026-09-14-round1-tense-aspect/`):
       시제·상(진행/완료) 보존을 의미 게이트 체크리스트에 9번째 항목으로 추가하는
       challenger를 만들어 champion과 블라인드 비교. 가설 표적 사례 2/2 승,
-      무관한 사례는 회귀 없이 동일 출력. 표본이 작아 `insufficient_evidence`로
-      정상 종료 — 아직 라이브 스킬에 반영하지 않음(사람 승격 판단 대기)
+      무관한 사례는 회귀 없이 동일 출력. 자동 판정은 표본 부족으로
+      `insufficient_evidence`였지만 사람이 diff를 직접 검토하고 수동으로
+      승격 승인 (`promotion-manifest.json`). `korean-plain-writer` v0.2.0 →
+      **v0.2.1**
 - [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
