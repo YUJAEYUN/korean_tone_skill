@@ -85,6 +85,38 @@ class StaticGraderTests(unittest.TestCase):
             self.assertEqual(score["genre"], "notice")
 
 
+class GrammarPatternScanTests(unittest.TestCase):
+    def test_flags_decisive_double_passive(self):
+        result = HARNESS.scan_grammar_patterns("이 결과는 전문가에 의해 신중하게 검토되어집니다.")
+        self.assertIn("이중피동", result["triggered"])
+        self.assertEqual(result["patterns"]["이중피동"]["severity"], "S1")
+
+    def test_single_occurrence_below_threshold_not_triggered(self):
+        result = HARNESS.scan_grammar_patterns("이 정책에 대해 설명하겠습니다.")
+        self.assertEqual(result["patterns"]["에_대해_남발"]["count"], 1)
+        self.assertNotIn("에_대해_남발", result["triggered"])
+
+    def test_repeated_occurrence_crosses_threshold(self):
+        text = "매출에 대해 분석하고, 시장에 대해 검토하며, 전략에 대해 논의했다."
+        result = HARNESS.scan_grammar_patterns(text)
+        self.assertIn("에_대해_남발", result["triggered"])
+        self.assertGreaterEqual(result["patterns"]["에_대해_남발"]["count"], 3)
+
+    def test_clean_text_triggers_nothing(self):
+        result = HARNESS.scan_grammar_patterns("오늘은 날씨가 맑아서 산책을 나갔다.")
+        self.assertEqual(result["triggered"], [])
+
+    def test_static_grade_reports_pattern_as_advisory_not_critical(self):
+        policy = {"static_checks": {"preserve_numbers": False, "preserve_quotes": False}}
+        double_passive_case = case(input="원문", must_preserve=[])
+        result = HARNESS.static_grade(
+            double_passive_case, "결과가 신중하게 검토되어집니다.", policy,
+        )
+        self.assertIn("이중피동", result["checks"]["ai_grammar_patterns"]["triggered"])
+        self.assertTrue(result["critical_pass"])
+        self.assertNotIn("ai_grammar_patterns", result["critical_failures"])
+
+
 class BatchImportTests(unittest.TestCase):
     def test_imports_complete_batch_and_source(self):
         with tempfile.TemporaryDirectory() as raw_dir:

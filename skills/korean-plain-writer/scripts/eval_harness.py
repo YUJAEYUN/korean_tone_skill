@@ -29,6 +29,110 @@ SYSTEMS = ("source", "naive", "champion", "challenger")
 NUMBER_RE = re.compile(r"(?<!\w)\d[\d,]*(?:\.\d+)?(?:%|퍼센트)?")
 QUOTE_RE = re.compile(r'["“”]([^"“”]+)["“”]')
 
+# Deterministic, code-level Korean AI-tell / grammar checks. Each pattern is
+# taken as-is from vendor/humanizer/references (translation-ese-patterns.md,
+# punctuation-patterns.md) rather than invented here -- see that catalog for
+# the evidence, exceptions, and rationale behind each one. Only patterns with
+# a narrow, well-documented "자연스러운 경우" exception list are included, to
+# keep the false-positive rate low enough to run unattended in a harness.
+# "이중피동" is a genuine grammar error (비문); the rest are style/translation-ese
+# signals, which is why they stay advisory (see GRAMMAR_PATTERNS[*].severity)
+# rather than counting as a critical_failure.
+GRAMMAR_PATTERNS: dict[str, dict[str, Any]] = {
+    "이중피동": {
+        # "지다"가 뒤에 오는 어미의 받침을 흡수하며 지/진/질/집/졌/져로 표면형이
+        # 바뀌므로(생성되어진다, 분석되어집니다 등) 순수 "되어지" 부분 문자열만으로는
+        # 활용형 대부분을 놓친다. 흔한 활용 음절을 문자 클래스로 함께 잡는다.
+        "regex": re.compile(r"되어[지진질집졌져]"),
+        "severity": "S1",
+        "threshold": 1,
+        "note": "패턴 31: '~되다'에 '~어지다'를 다시 붙인 이중 피동. 표준 문법상 비문.",
+    },
+    "에_있어서": {
+        "regex": re.compile(r"에\s*있어서?"),
+        "severity": "S1",
+        "threshold": 1,
+        "note": "패턴 27: 일본어 차용 격식투. 거의 모든 경우 '~에서'로 환원 가능.",
+    },
+    "가지고_있다": {
+        "regex": re.compile(r"가지고\s*있"),
+        "severity": "S1",
+        "threshold": 1,
+        "note": "패턴 30: 영어 have의 직역. 형용사나 '~이/가 있다'로 환원 가능한 경우가 대부분.",
+    },
+    "에_대해_남발": {
+        "regex": re.compile(r"에\s*대해서?"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 25: 영어 about/regarding 직역. 목적격 조사로 직결 가능한 경우가 많음.",
+    },
+    "통해_남발": {
+        "regex": re.compile(r"[을를]\s*통(?:해|하여)"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 26: 영어 through/via 직역. '~로', '~해서' 등으로 분산 가능.",
+    },
+    "관련하여_남발": {
+        "regex": re.compile(r"[와과]\s*관련(?:하여|된|하는)"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 28: 영어 in relation to 직역. 직접 결합('교육 정책')으로 환원 가능.",
+    },
+    "기반_바탕_남발": {
+        "regex": re.compile(r"에\s*기반(?:하여|한|해)|을\s*바탕으로"),
+        "severity": "S2",
+        "threshold": 2,
+        "note": "패턴 29: 영어 based on 직역. '~로', '~을 보고' 등으로 분산 가능.",
+    },
+    "에_의해_피동": {
+        "regex": re.compile(r"에\s*의(?:해|하여)"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 32: 영어 수동태 by 직역. 행위자를 주어로 한 능동이 대개 더 자연스러움.",
+    },
+    "라는_점에서": {
+        "regex": re.compile(r"라는\s*점에서"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 36: 영어 in that 직역. 연결어미 '~서'로 환원 가능한 경우가 많음.",
+    },
+    "연결어미_뒤_쉼표": {
+        "regex": re.compile(r"(?:고|아서|어서|지만|면서|며|는데|ㄴ데),"),
+        "severity": "S2",
+        "threshold": 3,
+        "note": "패턴 3 (KatFishNet 94.88% AUC): 한국어 연결어미는 이미 절 관계를 나타내 쉼표가 불필요.",
+    },
+    "줄표_과다": {
+        "regex": re.compile(r"—"),
+        "severity": "S2",
+        "threshold": 1,
+        "note": "패턴 6: 영어식 강조 줄표. 한국어 글쓰기에서는 드묾, 괄호나 문장 나누기가 대안.",
+    },
+}
+
+
+def scan_grammar_patterns(text: str) -> dict[str, Any]:
+    """Deterministically count vendor/humanizer AI-tell patterns in `text`.
+
+    Returns per-pattern counts plus which ones cross their documented
+    threshold (S1: any occurrence, S2: 3+ unless noted otherwise). This is a
+    diagnostic signal, not a preservation check, so callers should treat it
+    as advisory rather than folding it into critical_failures -- the source
+    catalog itself lists narrow "자연스러운 경우" exceptions a regex can't see.
+    """
+    findings: dict[str, Any] = {}
+    triggered: list[str] = []
+    for name, spec in GRAMMAR_PATTERNS.items():
+        count = len(spec["regex"].findall(text))
+        hit = count >= spec["threshold"]
+        findings[name] = {
+            "count": count, "severity": spec["severity"],
+            "threshold": spec["threshold"], "hit": hit, "note": spec["note"],
+        }
+        if hit:
+            triggered.append(name)
+    return {"advisory": True, "triggered": triggered, "patterns": findings}
+
 
 class HarnessError(ValueError):
     pass
@@ -212,9 +316,14 @@ def static_grade(case: dict[str, Any], output: str, policy: dict[str, Any]) -> d
         "pass": limit is None or ratio <= limit,
         "advisory": True,
     }
+
+    if policy["static_checks"].get("scan_grammar_patterns", True):
+        checks["ai_grammar_patterns"] = scan_grammar_patterns(output)
+
+    advisory_checks = {"change_ratio", "ai_grammar_patterns"}
     critical_failures = [
         name for name, result in checks.items()
-        if name != "change_ratio" and isinstance(result, dict) and not result.get("pass", True)
+        if name not in advisory_checks and isinstance(result, dict) and not result.get("pass", True)
     ]
     return {
         "critical_pass": not critical_failures,
@@ -311,7 +420,14 @@ def command_static(args: argparse.Namespace) -> None:
     write_jsonl(Path(args.out), grades)
     failures = sum(not row["critical_pass"] for row in grades)
     warnings = sum(not row["checks"]["change_ratio"]["pass"] for row in grades)
-    print(f"graded {len(grades)} outputs: {failures} critical failures, {warnings} over-edit warnings")
+    grammar_hits = sum(
+        bool(row["checks"].get("ai_grammar_patterns", {}).get("triggered"))
+        for row in grades
+    )
+    print(
+        f"graded {len(grades)} outputs: {failures} critical failures, "
+        f"{warnings} over-edit warnings, {grammar_hits} with a flagged grammar/AI-tell pattern"
+    )
 
 
 def command_import_batch(args: argparse.Namespace) -> None:

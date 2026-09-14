@@ -87,6 +87,15 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       `insufficient_evidence`였지만 사람이 diff를 직접 검토하고 수동으로
       승격 승인 (`promotion-manifest.json`). `korean-plain-writer` v0.2.0 →
       **v0.2.1**
+- [x] 하네스에 결정론적 문법·AI체 패턴 검사 추가(`eval_harness.py`의
+      `scan_grammar_patterns`): 이중 피동, "에 있어서", "가지고 있다", "에 대해"
+      남발 등 `vendor/humanizer`에서 이미 검증된 패턴 중 정규식으로 안전하게 잡을
+      수 있는 것만 코드로 옮김(예외가 좁은 패턴만 선정). LLM 1단계 진단을
+      대체하지 않고 advisory로만 씀(`HARNESS.md` 참고)
+- [ ] 외부 맞춤법 검사기(부산대 API 등)를 선택적 결정론적 게이트로 연결 —
+      이 세션 네트워크 정책이 `speller.cs.pusan.ac.kr`을 막고 있어(403) 이번엔
+      구현 못 함. 네트워크가 열린 환경에서 `--speller` 같은 선택적 플래그로
+      붙이는 걸 다음 단계로 남김
 - [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의

@@ -16,7 +16,8 @@
   },
   "static_checks": {
     "preserve_numbers": true,
-    "preserve_quotes": true
+    "preserve_quotes": true,
+    "scan_grammar_patterns": true
   },
   "require_semantic_scores": true,
   "decision_labels": {

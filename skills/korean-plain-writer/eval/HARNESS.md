@@ -117,6 +117,24 @@ python3 "$HARNESS" make-blind \
 `ballots.jsonl`만 평가자에게 준다. 같은 평가자가 거울쌍을 연달아 보지 않도록 순서를 다시
 섞거나 평가자를 나눈다. `private-key.jsonl`은 평가가 끝날 때까지 공개하지 않는다.
 
+## 결정론적 문법·AI체 패턴 검사
+
+`static-grade`는 must_preserve·숫자·인용 보존과 별도로 `checks.ai_grammar_patterns`도
+채점한다. `vendor/humanizer/references/translation-ese-patterns.md`와
+`punctuation-patterns.md`에서 검증된 패턴 중 예외가 좁고 정규식으로 안전하게 잡을 수
+있는 것들(이중 피동, "에 있어서", "가지고 있다", "에 대해" 남발 등)만 코드로 옮긴
+것이다(`scripts/eval_harness.py`의 `GRAMMAR_PATTERNS`). LLM의 1단계 진단을 대체하지
+않는다 — 각 패턴은 "자연스러운 경우" 예외가 있어서 정규식이 오탐할 수 있으므로
+`advisory: true`로 표시되고 `critical_failures`에 넣지 않는다. 사람이 승격을 검토할 때
+어떤 champion/challenger가 이 패턴을 더 자주 쓰는지 참고 신호로 쓴다.
+
+**외부 맞춤법 검사기는 아직 연결 안 됨.** 부산대 맞춤법 검사기(`speller.cs.pusan.ac.kr`)
+같은 실제 맞춤법·문법 API를 결정론적 게이트로 추가하는 게 다음 단계인데, 이 저장소
+세션의 네트워크 정책이 해당 도메인을 막고 있어(`__agentproxy/status`에
+`connect_rejected: 403`으로 기록됨) 이번엔 구현하지 못했다. 네트워크가 열린 환경(사용자
+로컬, CI 등)에서 `static-grade`에 `--speller` 같은 선택적 플래그를 추가해 pluggable하게
+붙이는 방식을 다음 라운드 후보로 남겨둔다.
+
 평가자는 `judges/pairwise-naturalness.md`에 따라 아래 형식으로 투표한다.
 
 ```json
