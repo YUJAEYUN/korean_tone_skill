@@ -1,0 +1,105 @@
+{
+  "baseline": "champion",
+  "by_genre": {
+    "article": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 0,
+      "ties": 1
+    },
+    "email": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 0,
+      "ties": 1
+    },
+    "essay": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 0,
+      "ties": 1
+    },
+    "informational": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    },
+    "message": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 1.0,
+      "candidate_wins": 1,
+      "decisions": 1,
+      "ties": 0
+    },
+    "notice": {
+      "baseline_wins": 0,
+      "candidate_win_rate": 0.0,
+      "candidate_wins": 0,
+      "decisions": 0,
+      "ties": 1
+    }
+  },
+  "candidate": "challenger",
+  "case_preference": {
+    "baseline_wins": 0,
+    "candidate_win_rate": 1.0,
+    "candidate_wins": 2,
+    "cases": 2,
+    "confidence_interval": [
+      0.34237195288961925,
+      1.0
+    ],
+    "decided_cases": 2,
+    "ties": 0
+  },
+  "critical_gate": {
+    "challenger_critical_failures": 0,
+    "missing_semantic_scores": 0,
+    "missing_static_scores": 0
+  },
+  "decision": "insufficient_evidence",
+  "operational": {
+    "baseline": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    },
+    "candidate": {
+      "mean_latency_ms": null,
+      "samples_with_metadata": 0,
+      "total_cost_usd": null,
+      "total_input_tokens": null,
+      "total_output_tokens": null
+    }
+  },
+  "overediting": {
+    "baseline_warning_rate": 0.0,
+    "candidate_warning_rate": 0.0
+  },
+  "pairwise_preference": {
+    "baseline_wins": 0,
+    "candidate_win_rate": 1.0,
+    "candidate_wins": 2,
+    "comparisons": 6,
+    "confidence_interval": [
+      0.34237195288961925,
+      1.0
+    ],
+    "decisions": 2,
+    "ties": 4
+  },
+  "reasons": [
+    "유효 비교 2건으로 최소 20건에 못 미친다.",
+    "유효 사례 2개로 최소 6개에 못 미친다.",
+    "장르별 최소 비교 수가 부족하다: article, email, essay, informational, message, notice",
+    "사례 단위 후보 승률의 95% 하한 34.2%가 기준 50.0%보다 낮다."
+  ],
+  "schema_version": 1
+}

@@ -45,6 +45,13 @@ champion(v0.2.0)과 challenger(이 변경)를 블라인드로 검증 사례 6개
 관련 파일: `eval/runs/2026-09-14-round1-tense-aspect/` 안의 experiment.yaml,
 challenger.diff, report.md, promotion-manifest.json.
 
+**추가 (2026-09-14, 승격 이후)**: 자연스러움 판정을 이 대화 맥락이 전혀 없는 별도
+Agent(opus)에게 다시 시켰다. 정확히 같은 결과(challenger 4승, 무승부 8건, 같은
+두 사례에서 같은 이유)가 나와, 이 승격이 이 세션 혼자만의 편향은 아니었다는 첫
+독립 신호를 얻었다. 다만 opus도 Claude 계열이라 진짜 "다른 회사 모델"은 아니고,
+의미 보존 게이트는 재채점하지 않았고, 사람 채점자는 여전히 없다.
+`eval/runs/2026-09-14-round1-tense-aspect/README.md`의 "독립 재채점" 절 참고.
+
 ## v0.2.0 — 이 changelog 도입 이전
 
 이 파일이 생기기 전까지의 변경 이력은 릴리즈 노트 형식으로 따로 정리돼 있지

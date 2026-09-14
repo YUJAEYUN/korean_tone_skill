@@ -116,7 +116,13 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       교체 — 처음 파일럿에서 쓴 글자 수·단순 CV 분석 일부가 단위를 바꾸자 틀린
       것으로 드러나 정정함(`korean-writing-orchestrator/eval/runs/
       2026-09-14-champion-vs-naive/README.md`의 "갱신 이력")
-- [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
+- [x] 첫 독립 재채점: `Agent` 툴로 이 대화 맥락이 없는 별도 opus 모델에게 개선
+      라운드 1의 블라인드 쌍을 다시 채점시킴 — 원래 자기채점과 정확히 같은
+      결과(challenger 4승, 무승부 8건, 같은 이유)가 나와 승격 판단이 자기
+      편향만은 아니었다는 첫 신호를 얻음. 다만 opus도 Claude 계열이라 진짜
+      교차 벤더는 아니고, 의미 게이트는 재채점 안 함, 사람 채점자는 아직 0명
+      (`korean-plain-writer/eval/runs/2026-09-14-round1-tense-aspect/README.md`)
+- [ ] 진짜 다른 회사 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
       스타일/내용/유창성 3축 평가, 사람 평가 모범 사례(van der Lee 외), LLM 채점자

@@ -56,6 +56,30 @@
   `challenger-skill/`은 독립된 스냅샷일 뿐이다. `improvement-protocol.md`가
   요구하는 사람의 최종 승격 판단이 없으면 절대 라이브 스킬에 반영하지 않는다.
 
+## 독립 재채점 (2026-09-14, 별도 Agent · opus 모델)
+
+이 라운드의 자연스러움 투표(`votes.jsonl`)는 원래 이 스킬을 개선한 세션이 직접 매겼다
+— 자기채점이었다. 그 뒤 같은 12개 블라인드 쌍(`ballots.jsonl`)을 **이 대화 맥락을
+전혀 모르는 별도 Agent**(모델: opus, 가설·diff·이전 판정 결과를 전혀 주지 않고
+`judges/pairwise-naturalness.md` 규칙과 블라인드 쌍만 줌)에게 다시 채점하게 했다.
+
+결과는 `votes-independent-opus.jsonl`, `report-independent-opus.md`에 있다.
+**champion 0승, challenger 4승, 무승부 8건** — 원래 자기채점 결과(`report.md`)와
+승패·무승부 패턴이 정확히 일치한다. 독립 채점자도 정확히 같은 두 사례
+(`val2-tense-01`, `val2-casual-01`)에서 challenger를 선택했고, 판단 근거도
+동일했다 — "생각해봤어"는 진행 중인 고민을 완료된 일처럼 바꾸고, "운영한다"는
+진행 상태가 흐려진다는 것.
+
+**이게 뜻하는 것과 뜻하지 않는 것**:
+- 뜻하는 것: 이 라운드의 승격 판단(v0.2.0 → v0.2.1)이 이 세션 하나의 자기 편향만은
+  아니었다는 첫 독립 신호. 판단 근거(시제·상 보존)가 다른 모델에도 똑같이
+  설득력 있게 읽혔다.
+- 뜻하지 않는 것: (a) opus도 결국 Claude 계열이다. `HARNESS.md`가 요구하는
+  "다른 계열 LLM 채점자"(예: 다른 회사 모델)는 아직 아니다. (b) 자연스러움
+  재판정만 했다 — 의미 보존 게이트(`semantic-scores.jsonl`)는 다시 안 돌렸다.
+  (c) 사람 채점자는 여전히 0명이다. (d) 표본은 여전히 6사례뿐이라 `report-
+  independent-opus.md`도 자동으로 `insufficient_evidence`다.
+
 ## 사람이 확인할 것 (승격 여부 결정)
 
 1. `challenger.diff` — 가설과 무관한 변경이 섞이지 않았는지.
