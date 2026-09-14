@@ -36,6 +36,9 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   변경률 임계값을 재조정한 실측 근거)
 - 릴리즈 노트: [`CHANGELOG.md`](./skills/korean-plain-writer/CHANGELOG.md) (승격할 때마다
   뭐가·왜 바뀌었는지, 어떤 근거로 검증했는지 기록)
+- 작문 품질(구조·논리·설득력) 평가: [`korean-writing-orchestrator/eval/`](./skills/korean-writing-orchestrator/eval/)
+  (새 글쓰기 전용, 하네스는 `korean-plain-writer/scripts/eval_harness.py`를 공유. 아직
+  인프라만 있고 실행 전)
 
 ## 설계 원칙
 
@@ -96,6 +99,13 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       이 세션 네트워크 정책이 `speller.cs.pusan.ac.kr`을 막고 있어(403) 이번엔
       구현 못 함. 네트워크가 열린 환경에서 `--speller` 같은 선택적 플래그로
       붙이는 걸 다음 단계로 남김
+- [x] `korean-writing-orchestrator`에 작문 품질(구조·논리·설득력) 평가 인프라 신설
+      (`korean-writing-orchestrator/eval/`): `korean-plain-writer`와 같은
+      하네스 스크립트를 공유하고, 이 스킬만의 `product-contract.md`,
+      `judges/composition-quality-rubric.md`(구조가 내용에 봉사하는가/논지의
+      진짜 흐름/확신-구체성 일치/반론 처리/독자 행동가능성 5항), 결정론적
+      리듬 검사(`rhythm_stats`: 문장 길이 변동계수, `scan_composition_cliches`:
+      상투적 도입·마무리)를 갖춤. 임계값 미실측, 첫 실행 전 — 인프라만 있는 단계
 - [ ] 다른 계열 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의

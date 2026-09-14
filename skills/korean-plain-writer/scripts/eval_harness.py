@@ -5,6 +5,11 @@ The harness deliberately does not call an LLM provider. It prepares versioned ru
 performs deterministic preservation checks, creates blinded pairwise ballots, and
 aggregates votes under a promotion policy. Generation and model grading can happen
 in any environment as long as they emit the documented JSONL records.
+
+Also reused (via --skill-root) by korean-writing-orchestrator/eval/ for its
+composition-quality evaluation -- this script has no korean-plain-writer-specific
+paths baked in, so pointing --skill-root/--cases/--policy at a sibling skill is
+the intended way to share it rather than forking a copy.
 """
 
 from __future__ import annotations
@@ -16,6 +21,7 @@ import math
 import os
 import random
 import re
+import statistics
 import subprocess
 import sys
 from collections import Counter, defaultdict
@@ -132,6 +138,70 @@ def scan_grammar_patterns(text: str) -> dict[str, Any]:
         if hit:
             triggered.append(name)
     return {"advisory": True, "triggered": triggered, "patterns": findings}
+
+
+# Structural/rhythm signals for composition-quality evaluation (used by
+# korean-writing-orchestrator/eval/, opt-in via policy.json's
+# "scan_composition_patterns" so korean-plain-writer's existing checks are
+# unaffected). These target a different axis than GRAMMAR_PATTERNS: not "is
+# this phrase translation-ese" but "does this read with a human's uneven
+# rhythm, or a model's metronomic one." See
+# korean-writing-orchestrator/eval/product-contract.md for the reasoning.
+SENTENCE_SPLIT_RE = re.compile(r"[.!?]+(?:\s|$)")
+CLICHE_OPENERS = [
+    re.compile(r"^\s*오늘날\s*우리는"),
+    re.compile(r"^\s*현대\s*사회에서는"),
+    re.compile(r"^\s*바야흐로"),
+]
+CLICHE_CLOSERS = [
+    re.compile(r"이처럼[^.!?]*(?:알\s*수\s*있었다|볼\s*수\s*있었다)\s*\.?\s*$"),
+    re.compile(r"이렇듯[^.!?]*(?:알\s*수\s*있었다|볼\s*수\s*있었다)\s*\.?\s*$"),
+]
+
+
+def sentence_lengths(text: str) -> list[int]:
+    sentences = [s.strip() for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    return [len(normalize_text(s)) for s in sentences]
+
+
+def rhythm_stats(text: str) -> dict[str, Any]:
+    """Character-length variation across sentences (a burstiness proxy).
+
+    No pass/fail threshold yet -- this is diagnostic only, like change_ratio
+    was before change-rate-baseline.md calibrated it against 45 real
+    examples. Report the coefficient of variation (stdev/mean) so a future
+    round can set a real threshold from measured essay/notice/email samples
+    instead of a guessed number. Low CV == unusually uniform sentence
+    lengths, one of the "AI rhythm" signals discussed with the user; high CV
+    is the "bursty" pattern associated with human writing.
+    """
+    lengths = sentence_lengths(text)
+    if len(lengths) < 3:
+        return {
+            "sentence_count": len(lengths), "mean_length": None,
+            "stdev": None, "coefficient_of_variation": None,
+            "note": "문장이 3개 미만이라 리듬 변동을 측정하기엔 표본이 너무 작음",
+        }
+    mean = statistics.mean(lengths)
+    stdev = statistics.stdev(lengths)
+    return {
+        "sentence_count": len(lengths),
+        "mean_length": round(mean, 1),
+        "stdev": round(stdev, 1),
+        "coefficient_of_variation": round(stdev / mean, 3) if mean else None,
+    }
+
+
+def scan_composition_cliches(text: str) -> dict[str, Any]:
+    """Flag stock essay openers/closers already named in genre-rules.md.
+
+    Narrow, fixed-phrase matches only (no general "is this a cliche" NLP) to
+    keep false positives low. Advisory, same reasoning as GRAMMAR_PATTERNS.
+    """
+    opener_hit = any(pattern.search(text) for pattern in CLICHE_OPENERS)
+    closer_hit = any(pattern.search(text.strip()) for pattern in CLICHE_CLOSERS)
+    triggered = [name for name, hit in (("상투적_도입", opener_hit), ("상투적_마무리", closer_hit)) if hit]
+    return {"advisory": True, "triggered": triggered, "opener_hit": opener_hit, "closer_hit": closer_hit}
 
 
 class HarnessError(ValueError):
@@ -320,7 +390,11 @@ def static_grade(case: dict[str, Any], output: str, policy: dict[str, Any]) -> d
     if policy["static_checks"].get("scan_grammar_patterns", True):
         checks["ai_grammar_patterns"] = scan_grammar_patterns(output)
 
-    advisory_checks = {"change_ratio", "ai_grammar_patterns"}
+    if policy["static_checks"].get("scan_composition_patterns", False):
+        checks["rhythm"] = {"advisory": True, "pass": True, **rhythm_stats(output)}
+        checks["composition_cliches"] = scan_composition_cliches(output)
+
+    advisory_checks = {"change_ratio", "ai_grammar_patterns", "rhythm", "composition_cliches"}
     critical_failures = [
         name for name, result in checks.items()
         if name not in advisory_checks and isinstance(result, dict) and not result.get("pass", True)

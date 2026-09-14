@@ -39,3 +39,10 @@ description: 한국어 글을 새로 쓰거나 고칠 때 목적·독자·매체
 - **최종 검증**: `../korean-writing-validator/SKILL.md`
 
 구조·논리·톤 전용 스킬은 근거와 평가 사례가 충분히 쌓인 뒤 분리한다. 지금은 불필요한 호출 계층을 만들지 않는다.
+
+## 작문 품질 평가
+
+이 스킬이 새로 쓰거나 구조를 바꾼 글의 구조·논리·설득력을 평가하거나 개선할 때는
+`eval/product-contract.md`의 목표와 게이트를 따르고, 실제 실행 절차는 `eval/HARNESS.md`를
+읽는다. 의미 보존·정확성은 `../korean-writing-validator/references/validation-gates.md`가,
+문법·유창성·AI체는 `../korean-plain-writer/`가 이미 다루므로 여기서 새로 만들지 않는다.

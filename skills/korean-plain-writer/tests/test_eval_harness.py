@@ -117,6 +117,49 @@ class GrammarPatternScanTests(unittest.TestCase):
         self.assertNotIn("ai_grammar_patterns", result["critical_failures"])
 
 
+class CompositionRhythmTests(unittest.TestCase):
+    def test_uniform_sentence_lengths_yield_low_cv(self):
+        metronomic = "오늘은 날씨가 좋다. 오늘은 기분이 좋다. 오늘은 산책을 한다."
+        result = HARNESS.rhythm_stats(metronomic)
+        self.assertEqual(result["sentence_count"], 3)
+        self.assertLess(result["coefficient_of_variation"], 0.1)
+
+    def test_bursty_sentence_lengths_yield_higher_cv(self):
+        bursty = "비가 왔다. 그래서 나는 우산을 챙기고 장화를 신고 집을 나섰다. 젖었다."
+        result = HARNESS.rhythm_stats(bursty)
+        self.assertGreater(result["coefficient_of_variation"], 0.3)
+
+    def test_too_few_sentences_reports_none(self):
+        result = HARNESS.rhythm_stats("한 문장뿐이다.")
+        self.assertIsNone(result["coefficient_of_variation"])
+
+    def test_flags_cliche_opener_and_closer(self):
+        text = "오늘날 우리는 빠른 변화 속에 살고 있다. 이처럼 기술은 삶을 바꾸어 왔다는 것을 알 수 있었다."
+        result = HARNESS.scan_composition_cliches(text)
+        self.assertIn("상투적_도입", result["triggered"])
+        self.assertIn("상투적_마무리", result["triggered"])
+
+    def test_ordinary_text_triggers_no_cliches(self):
+        result = HARNESS.scan_composition_cliches("버스를 기다리다가 문득 동네 생각이 났다.")
+        self.assertEqual(result["triggered"], [])
+
+    def test_static_grade_skips_composition_checks_by_default(self):
+        policy = {"static_checks": {"preserve_numbers": False, "preserve_quotes": False}}
+        result = HARNESS.static_grade(case(input="원문", must_preserve=[]), "출력.", policy)
+        self.assertNotIn("rhythm", result["checks"])
+        self.assertNotIn("composition_cliches", result["checks"])
+
+    def test_static_grade_includes_composition_checks_when_enabled(self):
+        policy = {"static_checks": {
+            "preserve_numbers": False, "preserve_quotes": False,
+            "scan_composition_patterns": True,
+        }}
+        result = HARNESS.static_grade(case(input="원문", must_preserve=[]), "출력.", policy)
+        self.assertIn("rhythm", result["checks"])
+        self.assertIn("composition_cliches", result["checks"])
+        self.assertTrue(result["critical_pass"])
+
+
 class BatchImportTests(unittest.TestCase):
     def test_imports_complete_batch_and_source(self):
         with tempfile.TemporaryDirectory() as raw_dir:
