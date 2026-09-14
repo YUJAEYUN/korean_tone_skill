@@ -37,8 +37,8 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - 릴리즈 노트: [`CHANGELOG.md`](./skills/korean-plain-writer/CHANGELOG.md) (승격할 때마다
   뭐가·왜 바뀌었는지, 어떤 근거로 검증했는지 기록)
 - 작문 품질(구조·논리·설득력) 평가: [`korean-writing-orchestrator/eval/`](./skills/korean-writing-orchestrator/eval/)
-  (새 글쓰기 전용, 하네스는 `korean-plain-writer/scripts/eval_harness.py`를 공유. 아직
-  인프라만 있고 실행 전)
+  (새 글쓰기 전용, 하네스는 `korean-plain-writer/scripts/eval_harness.py`를 공유.
+  첫 파일럿 실행 완료, validation 세트는 아직 없음)
 
 ## 설계 원칙
 
@@ -51,6 +51,11 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 6. 이미 자연스러운 글과 글쓴이의 목소리를 불필요하게 평준화하지 않습니다.
 7. 성능은 원문·단순 프롬프트·현재 버전·후보 버전의 블라인드 비교와 의미 보존 게이트로
    검증합니다. 개선 AI가 평가 정책이나 비공개 테스트를 바꿀 수 없게 합니다.
+8. 사람에게 요구하는 건 언어학적 검증이 아니라 증거 기준 통과 여부·근거의 실재
+   여부·위험 감수 여부입니다. 하네스 자신이 충분한 증거로 확신하는 승격은 사람
+   승인 없이 진행하고 릴리즈 노트로만 알리되, 하네스가 확신하지 못하는데 강행하는
+   경우는 반드시 사람이 결정합니다(`korean-plain-writer/eval/product-contract.md`
+   "사람의 역할" 절 참고).
 
 전체 파이프라인(상황 분석 → 우선순위 결정 → 전문 스킬 선택 → 순차 수정 → 최종 검증)은
 [`korean-writing-orchestrator/SKILL.md`](./skills/korean-writing-orchestrator/SKILL.md)를 참고하세요.
