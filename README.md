@@ -55,10 +55,8 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 6. 이미 자연스러운 글과 글쓴이의 목소리를 불필요하게 평준화하지 않습니다.
 7. 성능은 원문·단순 프롬프트·현재 버전·후보 버전의 블라인드 비교와 의미 보존 게이트로
    검증합니다. 개선 AI가 평가 정책이나 비공개 테스트를 바꿀 수 없게 합니다.
-8. 사람에게 언어학적 검증을 요구하지 않습니다. 증거 기준을 통과했는지, 근거가
-   실재하는지, 위험을 감수할 만한지만 묻습니다. 하네스 자신이 충분한 증거로 확신하는
-   승격은 사람 승인 없이 진행하고 릴리즈 노트로만 알립니다. 반대로 하네스가 확신하지
-   못하는데도 승격을 강행하려는 경우는 반드시 사람이 결정합니다
+8. 사람에게 요구하는 건 증거 기준 통과·근거 실재·위험 감수 여부뿐입니다. 하네스가
+   확신하는 승격은 사람 승인 없이 진행하고, 확신하지 못하는 승격은 사람이 결정합니다
    (`korean-plain-writer/eval/product-contract.md`의 "사람의 역할" 절 참고).
 
 전체 파이프라인(상황 분석 → 우선순위 결정 → 전문 스킬 선택 → 순차 수정 → 최종 검증)은
@@ -66,112 +64,27 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 
 ## 현재 상태 / 다음 단계
 
-- [x] 1차 오케스트레이션 구조: 총괄 스킬, 상황 분석 스킬, 기존 쉬운 한국어 스킬,
-      최종 검증 스킬 연결
-- [x] `skills/korean-plain-writer/` 구조로 스킬 본체(SKILL.md, references, examples,
-      scripts, vendor) 정리, `.claude-plugin/` 매니페스트 추가
-- [x] `references/` 5개 파일(어휘 매핑표, 구조 템플릿, 장르 규칙, 조어형 개념어 판별,
-      진단 카탈로그 요약)
-- [x] `examples/pairs/` 45쌍 (장르별 15쌍)
-- [x] 변경률 확인 스크립트, 참조 무결성 검사 스크립트
-- [x] `vendor/humanizer/`에 DaleSeo/korean-skills의 humanizer 스킬 전문 로컬 복사
-- [x] `eval/`: held-out 텍스트 3개(장르별 1개)로 첫 평가 실행, 변경률 임계값이
-      korean-plain-writer에는 안 맞는다는 것을 발견하고 재조정(30~50% → 150%,
-      가드가 아니라 참고 수치로 성격 변경)
-- [ ] 실제 사용에서 나온 익명화 사례와 사용자 A/B 선택을 지속적으로 축적
-- [ ] 어휘 매핑표를 실제 작업에서 나온 항목으로 계속 누적
-- [ ] `fabricated-terms.md`의 구성 예시를 실제 겪은 사례로 교체·보강
-- [x] `eval/holdout/` 3개 블라인드 A/B 1차 결과 기록 (`eval/results.md`, 평가자 1명,
-      3/3 재작성본 선택. 표본이 작아 참고 수준)
-- [x] 원문·naive·champion·challenger 비교, 결정적 의미 검사, 블라인드 거울쌍,
-      승격 판정과 버전 manifest를 지원하는 평가 하네스 구현
-- [x] 개발 12개·검증 6개 seed 사례에 이미 자연스러운 원문, 조건, 인용, 숫자,
-      불확실성, 반말·존댓말 회귀 범주 포함
-- [x] 하네스 파이프라인(validate→scaffold→static-grade→make-blind→report) 첫
-      실제 실행 (`eval/runs/2026-09-14-champion-vs-naive/`). champion vs naive
-      비교 5건 중 5승, naive 2건 결정적 실패·3건 의미 게이트 실패 관측.
-      **단, 생성과 채점을 같은 세션이 해서 자기채점이며 표본도 6개뿐.** 정식
-      실행이 아니라 하네스가 실제로 도는지 확인한 파일럿
-- [x] 첫 개선 라운드 실행 및 승격 (`eval/runs/2026-09-14-round1-tense-aspect/`):
-      시제·상(진행/완료) 보존을 의미 게이트 체크리스트에 9번째 항목으로 추가하는
-      challenger를 만들어 champion과 블라인드 비교. 가설 표적 사례 2/2 승,
-      무관한 사례는 회귀 없이 동일 출력. 자동 판정은 표본 부족으로
-      `insufficient_evidence`였지만 사람이 diff를 직접 검토하고 수동으로
-      승격 승인 (`promotion-manifest.json`). `korean-plain-writer` v0.2.0 →
-      **v0.2.1**
-- [x] 하네스에 결정론적 문법·AI체 패턴 검사 추가(`eval_harness.py`의
-      `scan_grammar_patterns`): 이중 피동, "에 있어서", "가지고 있다", "에 대해"
-      남발 등 `vendor/humanizer`에서 이미 검증된 패턴 중 정규식으로 안전하게 잡을
-      수 있는 것만 코드로 옮김(예외가 좁은 패턴만 선정). LLM 1단계 진단을
-      대체하지 않고 advisory로만 씀(`HARNESS.md` 참고)
-- [ ] 외부 맞춤법 검사기(부산대 API 등)를 선택적 결정론적 게이트로 연결하는 것.
-      이 세션 네트워크 정책이 `speller.cs.pusan.ac.kr`을 막고 있어(403) 이번엔
-      구현 못 함. 네트워크가 열린 환경에서 `--speller` 같은 선택적 플래그로
-      붙이는 걸 다음 단계로 남김
-- [x] `korean-writing-orchestrator`에 작문 품질(구조·논리·설득력) 평가 인프라 신설
-      (`korean-writing-orchestrator/eval/`): `korean-plain-writer`와 같은
-      하네스 스크립트를 공유하고, 이 스킬만의 `product-contract.md`,
-      `judges/composition-quality-rubric.md`(구조가 내용에 봉사하는가/논지의
-      진짜 흐름/확신-구체성 일치/반론 처리/독자 행동가능성 5항), 결정론적
-      리듬 검사(`rhythm_stats`: 문장 길이 변동계수, `scan_composition_cliches`:
-      상투적 도입·마무리)를 갖춤
-- [x] 첫 파일럿 실행 (`korean-writing-orchestrator/eval/runs/2026-09-14-champion-vs-naive/`):
-      champion(프로세스 적용) vs naive 4사례, champion 4승. 리듬 지표가 예상과
-      다르게 나와("균일하게 짧음"과 "메트로놈 리듬"을 CV 하나로 구분 못 함)
-      임계값 미설정 결정이 맞았음을 확인. must_preserve 리터럴 불일치로 중대 실패
-      1건도 발견(의미는 맞지만 문자열이 정확히 안 맞음, `korean-plain-writer`
-      파일럿의 val-policy-01과 같은 패턴). 자기채점 파일럿이라 표본 작음
-- [x] 리듬 지표를 실제 연구(Goh·Barabási 2008 burstiness 공식, 단어 수 기준)로
-      교체. 처음 파일럿에서 쓴 글자 수·단순 CV 분석 일부가 단위를 바꾸자 틀린
-      것으로 드러나 정정함(`korean-writing-orchestrator/eval/runs/
-      2026-09-14-champion-vs-naive/README.md`의 "갱신 이력")
-- [x] 첫 독립 재채점: `Agent` 툴로 이 대화 맥락이 없는 별도 opus 모델에게 개선
-      라운드 1의 블라인드 쌍을 다시 채점시킴. 원래 자기채점과 정확히 같은
-      결과(challenger 4승, 무승부 8건, 같은 이유)가 나와 승격 판단이 자기
-      편향만은 아니었다는 첫 신호를 얻음. 다만 opus도 Claude 계열이라 진짜
-      교차 벤더는 아니고, 의미 게이트는 재채점 안 함, 사람 채점자는 아직 0명
-      (`korean-plain-writer/eval/runs/2026-09-14-round1-tense-aspect/README.md`)
-- [x] 외부 프로젝트 im-not-ai(`epoko77-ai/im-not-ai`) 검토: 이전에 참고된 적이
-      없다는 것을 `grep`과 전체 git 이력 검색으로 확인한 뒤, 코퍼스 실측 방법론과
-      결과를 정독. vendor 카탈로그 패턴 25·26·40이 통념과 반대(사람이 AI보다
-      더 자주 씀)라는 근거를 찾아 개선 라운드 2의 근거로 채택
-- [x] 개선 라운드 2 실행, **미승격** (`eval/runs/2026-09-14-round2-corpus-correction/`):
-      "에 대해"/"를 통해"/"것이다" 세 패턴을 저빈도에서는 신호로 보지 않는 안내를
-      `ai-tell-catalog.md`에 추가하는 challenger를 만들어 비교. 사례 3개 중 실제
-      출력이 갈린 건 1개뿐이고, 그 사례에서 자가 채점(sonnet)과 독립 채점(opus)이
-      정반대로 갈림. 가설 문제가 아니라 **사례 설계 결함**으로 진단(challenger 출력을
-      원문과 완전히 동일하게 만들어 "저빈도 패턴 유지"가 "편집 안 함"으로 읽힘). `scan_grammar_patterns`에 "것이다" 종결 탐지 패턴이 아예
-      없다는 기존 격차도 발견(이번 범위 밖이라 미수정). 라이브 스킬 미반영
-- [x] 개선 라운드 2b 실행 및 승격 (`eval/runs/2026-09-14-round2b-real-ai-text/`):
-      라운드 2의 사례 설계 결함을 고치려고 방법을 바꿈. 문장을 손으로 짓지 않고
-      여러 모델(opus·haiku)에게 무유도 프롬프트로 글을 쓰게 시켜 세 패턴의 실제
-      등장을 관찰하고, champion·challenger 출력도 손으로 쓰지 않고 `SKILL.md`
-      절차 전문을 Agent에게 실제로 수행시켜 얻음. "것이다" 패턴에서 실제 행동
-      차이가 관측됐고(champion은 현재형 단정으로 전환, challenger는 보존),
-      자가 채점과 독립 채점(opus)이 **같은 근거**(확신의 강도 보존,
-      `SKILL.md` 4단계 7번 항목)로 challenger 2/2 승 일치. 자동 판정은
-      `insufficient_evidence`(사례 1개)였지만 설계 결함이 없고 두 채점이
-      수렴한 것을 근거로 사람이 검토하고 승격 승인. `korean-plain-writer`
-      v0.2.1 → **v0.2.2**. "에 대해"·"를 통해"는 실제 행동 차이로 검증되지
-      않아 코퍼스 근거만으로 포함됐다는 한계를 CHANGELOG.md에 명시
-- [ ] 라운드 2/2b 후속: 표본 확대(같은 무유도 생성 → 실제 관측 → 실제 스킬 수행
-      방식 반복, 특히 "에 대해" 동사 결합형은 5회 시도에서도 자연 발생 안 함),
-      "것이다" 정적 탐지 패턴 추가, semantic-gate.md에 "확신의 강도 보존" 항목
-      추가. 다음 라운드 시작 전 사람이 방향 선택
-- [ ] 진짜 다른 회사 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
-- [ ] 저장소 밖 비공개 테스트셋 구축
-- [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의
-      스타일/내용/유창성 3축 평가, 사람 평가 모범 사례(van der Lee 외), LLM 채점자
-      선례, 국립국어원 공공언어 자료, 한국어 가독성 공식 연구, 쉬운 글 효과 연구
-- [x] 유창성 체크 축 추가 (`eval/fluency-rubric.md`), 자연도·의미보존과 분리해서 채점
-- [x] 국립국어원 "쉬운 공문서 쓰기 길잡이" 1장(8~20쪽) 사용자가 직접 캡처해서 확인.
-      `plain-vocabulary-map.md`에 어휘 순화 사례 반영, "다듬은 말" 데이터베이스(18,000건+)
-      찾아 들어가는 법 기록, `genre-rules.md`에 장르 공통 원칙(고압적·차별적 표현,
-      접속어·조사 정확성, 긍정문, 목록화) 추가
-- [x] 같은 자료 2·3장(21~35쪽)과 3부(60~105쪽, 96쪽 "누리소통망서비스 홍보 글 쓰기"
-      포함) 페이지별 색인 확보(`output/쉬운_공문서_쓰기_길잡이_페이지별_색인.md`) 후
-      반영. `genre-rules.md`에 문장 성분 호응·정보 과다 몰아넣기 금지·사동 남용 금지
-      추가, SNS 홍보 글을 실용문의 하위 항목으로 신설. `plain-vocabulary-map.md`에
-      행정 용어·서식 표현 표 추가
-- [ ] 문장 길이 등 간단한 자체 가독성 지표 추가 (한국어 가독성 공식 원문은 KCI 학술
-      DB 안에 있어 이번엔 확인 못 함)
+**완료**
+
+- 4개 스킬 파이프라인, `.claude-plugin/` 매니페스트
+- `korean-plain-writer`: references 5종, 예문 뱅크 45쌍, `vendor/humanizer/` 로컬 복사,
+  변경률·참조 무결성 스크립트
+- 평가 하네스(`eval_harness.py`): champion/naive/challenger 블라인드 비교, 결정론적
+  문법·AI체 패턴 검사, 독립 채점자 재검증 절차
+- 개선 라운드 3회 실행, `korean-plain-writer` v0.2.0 → v0.2.2 (근거는
+  [`eval/results.md`](./skills/korean-plain-writer/eval/results.md)와
+  [`CHANGELOG.md`](./skills/korean-plain-writer/CHANGELOG.md))
+- `korean-writing-orchestrator`에 작문 품질(구조·논리·설득력) 평가 인프라 신설,
+  첫 파일럿 실행
+- 국립국어원 『쉬운 공문서 쓰기 길잡이』 1~3장·3부 반영 (`genre-rules.md`,
+  `plain-vocabulary-map.md`)
+- 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`), 유창성 체크 축 추가
+
+**다음 단계**
+
+- 실제 사용 사례 축적(어휘 매핑표, 예문 뱅크, 조어형 개념어 사례)
+- "것이다" 정적 탐지 패턴 추가, 의미 게이트에 확신의 강도 보존 체크 추가
+- 다른 회사 LLM 채점자·사람 채점자 2명 이상으로 하네스 정식 실행
+- 저장소 밖 비공개 테스트셋 구축
+- 외부 맞춤법 검사기 연동(네트워크 제약으로 보류)
+- 문장 길이 등 자체 가독성 지표 추가
