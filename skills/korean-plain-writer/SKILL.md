@@ -8,7 +8,7 @@ description: >
 license: MIT
 metadata:
   author: 20211072@edu.hanbat.ac.kr
-  version: 0.2.1
+  version: 0.2.2
 allowed-tools: Read Write Edit Grep Glob
 ---
 

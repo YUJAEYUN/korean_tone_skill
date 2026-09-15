@@ -139,16 +139,18 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       원문과 완전히 동일하게 만들어 "저빈도 패턴 유지"가 아니라 "편집 안 함"으로
       읽힘)으로 진단. `scan_grammar_patterns`에 "것이다" 종결 탐지 패턴이 아예
       없다는 기존 격차도 발견(이번 범위 밖이라 미수정). 라이브 스킬 미반영
-- [x] 개선 라운드 2b 실행, **사람 검토 요청 중** (`eval/runs/2026-09-14-round2b-real-ai-text/`):
+- [x] 개선 라운드 2b 실행 및 승격 (`eval/runs/2026-09-14-round2b-real-ai-text/`):
       라운드 2의 사례 설계 결함을 고치려고 방법을 바꿈 — 문장을 손으로 짓지 않고
       여러 모델(opus·haiku)에게 무유도 프롬프트로 글을 쓰게 시켜 세 패턴의 실제
       등장을 관찰하고, champion·challenger 출력도 손으로 쓰지 않고 `SKILL.md`
       절차 전문을 Agent에게 실제로 수행시켜 얻음. "것이다" 패턴에서 실제 행동
       차이가 관측됐고(champion은 현재형 단정으로 전환, challenger는 보존),
       자가 채점과 독립 채점(opus)이 **같은 근거**(확신의 강도 보존,
-      `SKILL.md` 4단계 7번 항목)로 challenger 2/2 승 일치. 여전히
-      `insufficient_evidence`(사례 1개)지만 설계 결함이 없고 두 채점이 수렴해서
-      라이브 반영 여부를 사람이 결정해야 함
+      `SKILL.md` 4단계 7번 항목)로 challenger 2/2 승 일치. 자동 판정은
+      `insufficient_evidence`(사례 1개)였지만 설계 결함이 없고 두 채점이
+      수렴한 것을 근거로 사람이 검토하고 승격 승인. `korean-plain-writer`
+      v0.2.1 → **v0.2.2**. "에 대해"·"를 통해"는 실제 행동 차이로 검증되지
+      않아 코퍼스 근거만으로 포함됐다는 한계를 CHANGELOG.md에 명시
 - [ ] 라운드 2/2b 후속: 표본 확대(같은 무유도 생성 → 실제 관측 → 실제 스킬 수행
       방식 반복, 특히 "에 대해" 동사 결합형은 5회 시도에서도 자연 발생 안 함),
       "것이다" 정적 탐지 패턴 추가, semantic-gate.md에 "확신의 강도 보존" 항목

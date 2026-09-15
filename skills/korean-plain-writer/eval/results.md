@@ -29,7 +29,7 @@
   실제로 편집)해서 이 가설을 다시 테스트할지, 아니면 "것이다" 탐지 격차를 먼저 다룰지
   (`eval/runs/2026-09-14-round2-corpus-correction/README.md`의 "다음 단계" 참고).
 
-## 2026-09-14: 개선 라운드 2b (라운드 2를 실제 AI 생성 텍스트로 재검증, champion vs challenger — 아직 미승격, 사람 검토 요청)
+## 2026-09-14: 개선 라운드 2b (라운드 2를 실제 AI 생성 텍스트로 재검증, champion vs challenger — 승격됨, v0.2.2)
 
 전체 기록은 `eval/runs/2026-09-14-round2b-real-ai-text/`에 있습니다.
 
@@ -45,10 +45,13 @@
   같은 근거로 일치**했습니다: 둘 다 challenger 2/2 승, 둘 다 "원문의 예측·추정 어조
   보존"을 근거로 들었습니다(champion의 "것이다"→현재형 단정 전환이 `SKILL.md` 4단계
   7번 항목 "확신의 강도 보존"과 닿아 있다는 지적).
-- 판정은 여전히 `insufficient_evidence`(사례 1개뿐, 정책 최소 6개에 못 미침)이지만,
-  라운드 2와 달리 설계 결함이 없고 두 채점자가 같은 근거로 일치해서 **사람 검토를
-  요청**합니다. `challenger.diff`는 라운드 2와 동일(`ai-tell-catalog.md`의 "실측 기반
-  주의사항" 절)이며 아직 라이브 스킬에 반영하지 않았습니다.
+- 판정은 여전히 `insufficient_evidence`(사례 1개뿐, 정책 최소 6개에 못 미침)였지만,
+  라운드 2와 달리 설계 결함이 없고 두 채점자가 같은 근거로 일치해서 사람 검토를
+  요청했습니다. 사람(20211072@edu.hanbat.ac.kr)이 두 라운드의 diff·근거를 검토한 뒤
+  승격을 승인했습니다. `korean-plain-writer` v0.2.1 → **v0.2.2**
+  (`eval/runs/2026-09-14-round2b-real-ai-text/promotion-manifest.json`,
+  `CHANGELOG.md`). "에 대해"·"를 통해"는 이번 라운드에서 실제 행동 차이로 검증되지
+  않아 코퍼스 근거만으로 승격에 포함됐다는 한계를 CHANGELOG.md에 명시했습니다.
 
 ## 2026-09-14: 개선 라운드 1 (시제·상 체크리스트 항목, champion vs challenger)
 

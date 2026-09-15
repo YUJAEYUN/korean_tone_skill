@@ -1,0 +1,17 @@
+{
+  "approved_by": "20211072@edu.hanbat.ac.kr",
+  "from_version": "0.2.1",
+  "git_commit_being_promoted_from": "40501bdad10803c20acf175688a1854a4afd0c2c",
+  "promoted_at": "2026-09-15T00:00:00+00:00",
+  "promotion_basis": {
+    "challenger_diff": "skills/korean-plain-writer/eval/runs/2026-09-14-round2-corpus-correction/challenger.diff",
+    "decision_label": "insufficient_evidence",
+    "note": "자동 기준(유효 비교 20건, 사례 6개 이상)을 충족하지 못해 report.json은 두 라운드(round2, round2b) 모두 insufficient_evidence를 내었다. round2는 사례 설계 결함(challenger 출력이 원문과 동일해 '편집 미이행'으로 읽힘)으로 자가 채점과 독립 채점이 정반대로 갈려 그 자체로는 근거로 쓰지 않았다. round2b에서 손으로 지어낸 문장 대신 무유도 생성으로 실제 패턴을 관찰하고 champion/challenger 출력도 SKILL.md 절차를 Agent에게 실제 수행시켜 얻은 결과, '것이다' 패턴에서 실제 행동 차이가 관측됐고 자가 채점(sonnet)과 독립 채점(opus, 블라인드)이 같은 근거(SKILL.md 4단계 7번 확신의 강도 보존)로 challenger 2/2 승 일치. 사람(20211072@edu.hanbat.ac.kr)이 두 라운드의 diff·근거를 직접 검토한 뒤, 표본은 작지만(사례 1개) 설계 결함이 없고 두 채점이 같은 근거로 수렴했다는 점을 근거로 수동 승격하기로 결정했다. '~에 대해'와 '~를 통해'는 이번 라운드에서 실제 행동 차이로 검증되지 않아 코퍼스 근거만으로 승격에 포함됐다는 점을 CHANGELOG.md에 명시했다.",
+    "run_dir": "skills/korean-plain-writer/eval/runs/2026-09-14-round2b-real-ai-text",
+    "related_run_dir": "skills/korean-plain-writer/eval/runs/2026-09-14-round2-corpus-correction"
+  },
+  "round": "2026-09-14-round2b-real-ai-text",
+  "schema_version": 1,
+  "skill_tree_sha256_after_promotion": "2c0a76ee1e47c6838a68f85accff50e191a8f35baaeeb60e569d4d39220f6dc8",
+  "to_version": "0.2.2"
+}
