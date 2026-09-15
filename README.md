@@ -52,10 +52,10 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 7. 성능은 원문·단순 프롬프트·현재 버전·후보 버전의 블라인드 비교와 의미 보존 게이트로
    검증합니다. 개선 AI가 평가 정책이나 비공개 테스트를 바꿀 수 없게 합니다.
 8. 사람에게 언어학적 검증을 요구하지 않습니다. 증거 기준을 통과했는지, 근거가
-   실재하는지, 위험을 감수할 만한지만 묻습니다. 하네스 자신이 충분한 증거로 확신하는 승격은 사람
-   승인 없이 진행하고 릴리즈 노트로만 알리되, 하네스가 확신하지 못하는데 강행하는
-   경우는 반드시 사람이 결정합니다(`korean-plain-writer/eval/product-contract.md`
-   "사람의 역할" 절 참고).
+   실재하는지, 위험을 감수할 만한지만 묻습니다. 하네스 자신이 충분한 증거로 확신하는
+   승격은 사람 승인 없이 진행하고 릴리즈 노트로만 알립니다. 반대로 하네스가 확신하지
+   못하는데도 승격을 강행하려는 경우는 반드시 사람이 결정합니다
+   (`korean-plain-writer/eval/product-contract.md`의 "사람의 역할" 절 참고).
 
 전체 파이프라인(상황 분석 → 우선순위 결정 → 전문 스킬 선택 → 순차 수정 → 최종 검증)은
 [`korean-writing-orchestrator/SKILL.md`](./skills/korean-writing-orchestrator/SKILL.md)를 참고하세요.
