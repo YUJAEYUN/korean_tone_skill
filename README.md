@@ -86,7 +86,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - [x] 하네스 파이프라인(validate→scaffold→static-grade→make-blind→report) 첫
       실제 실행 (`eval/runs/2026-09-14-champion-vs-naive/`). champion vs naive
       비교 5건 중 5승, naive 2건 결정적 실패·3건 의미 게이트 실패 관측.
-      **단, 생성과 채점을 같은 세션이 해서 자기채점이며 표본도 6개뿐** — 정식
+      **단, 생성과 채점을 같은 세션이 해서 자기채점이며 표본도 6개뿐.** 정식
       실행이 아니라 하네스가 실제로 도는지 확인한 파일럿
 - [x] 첫 개선 라운드 실행 및 승격 (`eval/runs/2026-09-14-round1-tense-aspect/`):
       시제·상(진행/완료) 보존을 의미 게이트 체크리스트에 9번째 항목으로 추가하는
@@ -100,7 +100,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       남발 등 `vendor/humanizer`에서 이미 검증된 패턴 중 정규식으로 안전하게 잡을
       수 있는 것만 코드로 옮김(예외가 좁은 패턴만 선정). LLM 1단계 진단을
       대체하지 않고 advisory로만 씀(`HARNESS.md` 참고)
-- [ ] 외부 맞춤법 검사기(부산대 API 등)를 선택적 결정론적 게이트로 연결 —
+- [ ] 외부 맞춤법 검사기(부산대 API 등)를 선택적 결정론적 게이트로 연결하는 것.
       이 세션 네트워크 정책이 `speller.cs.pusan.ac.kr`을 막고 있어(403) 이번엔
       구현 못 함. 네트워크가 열린 환경에서 `--speller` 같은 선택적 플래그로
       붙이는 걸 다음 단계로 남김
@@ -118,11 +118,11 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       1건도 발견(의미는 맞지만 문자열이 정확히 안 맞음, `korean-plain-writer`
       파일럿의 val-policy-01과 같은 패턴). 자기채점 파일럿이라 표본 작음
 - [x] 리듬 지표를 실제 연구(Goh·Barabási 2008 burstiness 공식, 단어 수 기준)로
-      교체 — 처음 파일럿에서 쓴 글자 수·단순 CV 분석 일부가 단위를 바꾸자 틀린
+      교체. 처음 파일럿에서 쓴 글자 수·단순 CV 분석 일부가 단위를 바꾸자 틀린
       것으로 드러나 정정함(`korean-writing-orchestrator/eval/runs/
       2026-09-14-champion-vs-naive/README.md`의 "갱신 이력")
 - [x] 첫 독립 재채점: `Agent` 툴로 이 대화 맥락이 없는 별도 opus 모델에게 개선
-      라운드 1의 블라인드 쌍을 다시 채점시킴 — 원래 자기채점과 정확히 같은
+      라운드 1의 블라인드 쌍을 다시 채점시킴. 원래 자기채점과 정확히 같은
       결과(challenger 4승, 무승부 8건, 같은 이유)가 나와 승격 판단이 자기
       편향만은 아니었다는 첫 신호를 얻음. 다만 opus도 Claude 계열이라 진짜
       교차 벤더는 아니고, 의미 게이트는 재채점 안 함, 사람 채점자는 아직 0명
@@ -135,11 +135,11 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
       "에 대해"/"를 통해"/"것이다" 세 패턴을 저빈도에서는 신호로 보지 않는 안내를
       `ai-tell-catalog.md`에 추가하는 challenger를 만들어 비교. 사례 3개 중 실제
       출력이 갈린 건 1개뿐이고, 그 사례에서 자가 채점(sonnet)과 독립 채점(opus)이
-      정반대로 갈림 — 가설 문제가 아니라 **사례 설계 결함**으로 진단(challenger 출력을
+      정반대로 갈림. 가설 문제가 아니라 **사례 설계 결함**으로 진단(challenger 출력을
       원문과 완전히 동일하게 만들어 "저빈도 패턴 유지"가 "편집 안 함"으로 읽힘). `scan_grammar_patterns`에 "것이다" 종결 탐지 패턴이 아예
       없다는 기존 격차도 발견(이번 범위 밖이라 미수정). 라이브 스킬 미반영
 - [x] 개선 라운드 2b 실행 및 승격 (`eval/runs/2026-09-14-round2b-real-ai-text/`):
-      라운드 2의 사례 설계 결함을 고치려고 방법을 바꿈 — 문장을 손으로 짓지 않고
+      라운드 2의 사례 설계 결함을 고치려고 방법을 바꿈. 문장을 손으로 짓지 않고
       여러 모델(opus·haiku)에게 무유도 프롬프트로 글을 쓰게 시켜 세 패턴의 실제
       등장을 관찰하고, champion·challenger 출력도 손으로 쓰지 않고 `SKILL.md`
       절차 전문을 Agent에게 실제로 수행시켜 얻음. "것이다" 패턴에서 실제 행동
@@ -153,7 +153,7 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - [ ] 라운드 2/2b 후속: 표본 확대(같은 무유도 생성 → 실제 관측 → 실제 스킬 수행
       방식 반복, 특히 "에 대해" 동사 결합형은 5회 시도에서도 자연 발생 안 함),
       "것이다" 정적 탐지 패턴 추가, semantic-gate.md에 "확신의 강도 보존" 항목
-      추가 — 다음 라운드 시작 전 사람이 방향 선택
+      추가. 다음 라운드 시작 전 사람이 방향 선택
 - [ ] 진짜 다른 회사 LLM 채점자와 사람 2명 이상으로 하네스 첫 정식(독립) 실행
 - [ ] 저장소 밖 비공개 테스트셋 구축
 - [x] 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`): 텍스트 스타일 전이의

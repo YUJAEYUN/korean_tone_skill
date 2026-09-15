@@ -39,7 +39,7 @@ stop_condition: 같은 실패가 재현되지 않거나 두 번의 패치가 효
 새 지표(리듬·가독성 같은 코드 검사)를 만들 때는 특히 `research_basis`를 채운다.
 `rhythm_stats`가 즉흥적인 변동계수에서 Goh-Barabási의 검증된 burstiness 공식으로
 바뀐 과정(`korean-writing-orchestrator/eval/product-contract.md` 참고)이 이 원칙의
-실제 사례다 — 직접 판단하기 전에 그 분야의 실제 연구를 먼저 찾는다.
+실제 사례다. 직접 판단하기 전에 그 분야의 실제 연구를 먼저 찾는다.
 
 ## 평가와 판정
 
@@ -77,7 +77,7 @@ stop_condition: 같은 실패가 재현되지 않거나 두 번의 패치가 효
 ## 승격과 릴리즈 노트
 
 승격이 결정되면(사람 승인을 받았든, 위 기준에 따라 승인 없이 진행하든) 그 자리에서
-세 가지를 함께 한다. 순서를 나누지 않는다 — 스킬 변경과 노트가 따로 놀면 다음
+세 가지를 함께 한다. 순서를 나누지 않는다. 스킬 변경과 노트가 따로 놀면 다음
 라운드에서 "뭐가 왜 바뀌었는지" 다시 diff를 읽어야 한다.
 
 1. `challenger.diff`를 `skills/korean-plain-writer/SKILL.md`(champion)에

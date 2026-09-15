@@ -1,7 +1,7 @@
 # 하네스 실행법 (공유 스크립트)
 
 이 평가는 `../../korean-plain-writer/scripts/eval_harness.py`를 그대로 쓴다.
-스크립트를 복제하지 않는다 — 그 스크립트는 처음부터 스킬 비의존적으로 짜여
+스크립트를 복제하지 않는다. 그 스크립트는 처음부터 스킬 비의존적으로 짜여
 있어서(경로를 전부 인자로 받음), `--skill-root`와 `--cases`/`--policy`만 이
 디렉터리로 바꾸면 그대로 동작한다. 전체 명령어·용어 설명은
 `../../korean-plain-writer/eval/HARNESS.md`를 먼저 읽는다(여기서는 이 스킬에 맞춘
@@ -22,7 +22,7 @@ python3 "$HARNESS" scaffold \
 ```
 
 `static-grade`, `make-blind`, `report`는 `../../korean-plain-writer/eval/HARNESS.md`와
-명령어가 완전히 같다 — `--cases`/`--outputs`/`--policy` 경로만 이 디렉터리 것으로
+명령어가 완전히 같다. `--cases`/`--outputs`/`--policy` 경로만 이 디렉터리 것으로
 바꾸면 된다.
 
 ## 이 스킬만의 차이
@@ -33,7 +33,7 @@ python3 "$HARNESS" scaffold \
   결과물에도 반드시 남아야 하는 것을 적는다.
 - **의미 채점자 대신/추가로**: `judges/composition-quality-rubric.md`를 쓴다.
   `../../korean-plain-writer/eval/judges/semantic-gate.md`(의미 보존)와
-  `../../korean-plain-writer/eval/fluency-rubric.md`(유창성)는 그대로 재사용한다 —
+  `../../korean-plain-writer/eval/fluency-rubric.md`(유창성)는 그대로 재사용한다.
   여기서 다시 만들지 않는다.
 - **결정론적 검사**: `policy.json`이 `scan_composition_patterns: true`를 켜 둬서
   `static-grade`가 `rhythm`(문장 길이를 단어 수로 잰 변동계수·Goh-Barabási
