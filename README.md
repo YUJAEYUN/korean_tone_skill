@@ -4,6 +4,16 @@
 Claude Code 스킬 모음입니다. 모든 규칙을 무조건 적용하지 않고 큰 구조에서 작은 표현
 순서로 고친 뒤 의미와 목적 적합성을 검증합니다.
 
+## 전체 구조
+
+![Korean Writing Skills 아키텍처](docs/architecture.png)
+
+위 그림은 [archify](https://github.com/tt-a1i/archify)로 만들었습니다. 원문 위쪽(글쓰기
+파이프라인)이 실제 실행 순서이고, 아래쪽(자기개선 루프)은 `korean-plain-writer`가
+champion/challenger를 블라인드 비교해 스스로 개선하는 흐름입니다. 인터랙티브 버전은
+[`docs/architecture.html`](docs/architecture.html)에서 열 수 있고, 소스 스펙은
+[`docs/architecture.json`](docs/architecture.json)에 있습니다.
+
 ## 스킬 구성
 
 - `korean-writing-orchestrator`: 전체 작업 순서와 전문 스킬 선택

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Korean Writing Skills",
+    "output": "architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "input", "type": "external", "label": "사용자 원문/요청", "sublabel": "글쓰기·윤문 요청", "pos": [40, 150], "size": [130, 64] },
+    { "id": "context", "type": "backend", "label": "korean-writing-context", "sublabel": "목적·독자 분석", "pos": [230, 150], "size": [140, 64] },
+    { "id": "orchestrator", "type": "backend", "label": "korean-writing-orchestrator", "sublabel": "스킬 선택·총괄", "pos": [440, 150], "size": [190, 64] },
+    { "id": "plain_writer", "type": "backend", "label": "korean-plain-writer", "sublabel": "AI체 진단·재작성", "pos": [700, 150], "size": [150, 64] },
+    { "id": "validator", "type": "backend", "label": "korean-writing-validator", "sublabel": "최종 검증", "pos": [920, 150], "size": [170, 64] },
+    { "id": "output", "type": "external", "label": "완성된 글", "pos": [1160, 150], "size": [110, 64] },
+    { "id": "vendor_catalog", "type": "external", "label": "vendor/humanizer", "sublabel": "진단 카탈로그", "pos": [440, 360], "size": [140, 64] },
+    { "id": "eval_harness", "type": "backend", "label": "eval_harness.py", "sublabel": "비교 평가", "pos": [650, 360], "size": [140, 64] },
+    { "id": "changelog", "type": "database", "label": "CHANGELOG.md", "sublabel": "승격 기록", "pos": [860, 360], "size": [140, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "글쓰기 파이프라인", "wraps": ["context", "orchestrator", "plain_writer", "validator"] },
+    { "kind": "region", "label": "자기개선 루프", "wraps": ["vendor_catalog", "eval_harness", "changelog"] }
+  ],
+  "connections": [
+    { "id": "input-to-context", "from": "input", "to": "context", "label": "요청", "variant": "emphasis" },
+    { "id": "context-to-orchestrator", "from": "context", "to": "orchestrator", "label": "상황 프로필" },
+    { "id": "orchestrator-to-plain-writer", "from": "orchestrator", "to": "plain_writer", "label": "스킬 선택" },
+    { "id": "plain-writer-to-validator", "from": "plain_writer", "to": "validator", "label": "재작성본" },
+    { "id": "validator-to-output", "from": "validator", "to": "output", "label": "최종 결과", "variant": "emphasis" },
+    { "id": "vendor-to-plain-writer", "from": "vendor_catalog", "to": "plain_writer", "label": "AI체 카탈로그", "variant": "dashed" },
+    { "id": "plain-writer-to-eval", "from": "plain_writer", "to": "eval_harness", "label": "champion vs challenger", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "eval-to-changelog", "from": "eval_harness", "to": "changelog", "label": "승격 승인", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "실행 파이프라인", "items": ["상황 분석 → 전문 스킬 선택 → 재작성 → 최종 검증 순서로 동작", "필요한 단계만 골라 적용"] },
+    { "dot": "emerald", "title": "AI체 진단", "items": ["새 진단 규칙을 만들지 않고 vendor/humanizer 카탈로그를 그대로 사용", "이 스킬은 목표 문체(쉬운 한국어)만 새로 담당"] },
+    { "dot": "rose", "title": "자기개선", "items": ["champion(배포 중)과 challenger(개선 후보)를 블라인드로 비교", "사람이 diff와 근거를 검토한 뒤에만 승격"] }
+  ]
+}
