@@ -79,12 +79,17 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 - 국립국어원 『쉬운 공문서 쓰기 길잡이』 1~3장·3부 반영 (`genre-rules.md`,
   `plain-vocabulary-map.md`)
 - 평가·글쓰기 기준 근거 자료 조사 (`eval/related-work.md`), 유창성 체크 축 추가
+- 자기개선 시스템 재설계: 실패 로그 누적, held-in(dev)/held-out(validation)
+  이중 비퇴화 승격 규칙, 사람을 주 채점자로 두는 절차 (설계 배경은
+  [`eval/self-improvement-prd.md`](./skills/korean-plain-writer/eval/self-improvement-prd.md),
+  실행 절차는 `human-rating-protocol.md`·`failure-log.jsonl`)
 
 **다음 단계**
 
-- 실제 사용 사례 축적(어휘 매핑표, 예문 뱅크, 조어형 개념어 사례)
-- "것이다" 정적 탐지 패턴 추가, 의미 게이트에 확신의 강도 보존 체크 추가
-- 다른 회사 LLM 채점자·사람 채점자 2명 이상으로 하네스 정식 실행
+- 새 구조로 첫 라운드 실제 진행(사람이 직접 글을 쓰고 채점)
+- `failure-log.jsonl`의 열린 항목("것이다" 정적 탐지 패턴 부재, 확신의 강도
+  보존 체크 부재) 처리
+- 다른 회사 LLM 채점자 확보, 사람 채점자 2명 이상으로 확대
 - 저장소 밖 비공개 테스트셋 구축
 - 외부 맞춤법 검사기 연동(네트워크 제약으로 보류)
 - 문장 길이 등 자체 가독성 지표 추가

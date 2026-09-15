@@ -147,6 +147,26 @@ Claude Code의 `Agent` 툴로 이 대화 맥락이 전혀 없는 별도 에이�
 대체가 아니다. 그건 여전히 열려 있는 TODO다. 하지만 아무 독립 검증도 없는 것보다는
 훨씬 낫고, 지금 이 세션에서 바로 할 수 있는 일이다(네트워크나 외부 API가 필요 없다).
 
+## 사람 채점자 확보
+
+`self-improvement-prd.md`가 정한 대로 사람(사용자)이 가능하면 주 채점자다.
+독립 Agent 채점(위 절)은 사람 채점과 같은 근거로 수렴하는지 확인하는 보조
+역할로 붙는다. 세부 절차는 `human-rating-protocol.md`에 있고, 핵심만 여기
+적는다.
+
+- 매 라운드 새 주제로 직접 글(또는 원문)을 몇 개 쓴다. 과거에 이미 본 사례는
+  재사용하지 않는다(`cases/validation.jsonl` 회전 규칙과 같은 이유 — 결과를
+  보고 나면 그 사례로는 더 이상 순수한 검증이 안 된다).
+- `make-blind`로 만든 `ballots.jsonl`만 받는다. champion/challenger 이름은
+  숨긴다 — 이건 사용자한테도 독립 Agent와 똑같이 적용한다. 자기가 무엇을
+  만들었는지 아는 상태로 판단하면 선호가 왜곡된다.
+- 판단 기준은 `judges/pairwise-naturalness.md`를 그대로 쓴다(사람 채점자
+  전용 규칙을 새로 만들지 않는다).
+- 투표는 `votes-human-<이름>.jsonl`에 저장한다(`votes-independent-<모델명>.jsonl`과
+  같은 명명 규칙, 원래 `votes.jsonl`을 덮어쓰지 않는다). `reason_tags`
+  (`improvement-protocol.md`의 "사람 취향 학습" 절 참고)를 함께 남긴다.
+- `report` 명령을 이 투표 파일로 돌려서 판정을 확인한다.
+
 ## 채점 데이터를 다룰 때 반드시 지킬 것
 
 `ballots.jsonl`의 `left`/`right` 텍스트를 **눈으로 보고** 어느 쪽이 champion인지
@@ -226,6 +246,38 @@ challenger`를 지정한다. 이 결과는 `comparison_only`로 기록되며 현
 사람은 마지막 상태에서 변경 diff, 의미 게이트 경계 사례, 채점자 불일치를 확인하고 현재
 버전으로 승격한다. 승격 뒤에는 사용 모델·스킬 해시·Git 커밋이 든 `manifest.json`을 결과와
 함께 보존한다.
+
+### held-in / held-out 이중 비퇴화 확인
+
+`product-contract.md`의 "성공의 운영적 정의"가 요구하는 조건이다. 위
+`static-grade`/`make-blind`/`report`를 `cases/validation.jsonl`(held-out)에
+한 번, `cases/dev.jsonl`(held-in, 전부 또는 표본)에 한 번, 총 두 번 돌린다.
+
+```bash
+python3 "$HARNESS" static-grade \
+  --cases "$EVAL/cases/dev.jsonl" \
+  --outputs "$EVAL/runs/<라운드>/outputs-dev.jsonl" \
+  --policy "$EVAL/policy.json" \
+  --out "$EVAL/runs/<라운드>/static-scores-dev.jsonl"
+
+python3 "$HARNESS" make-blind \
+  --cases "$EVAL/cases/dev.jsonl" \
+  --outputs "$EVAL/runs/<라운드>/outputs-dev.jsonl" \
+  --ballots "$EVAL/runs/<라운드>/ballots-dev.jsonl" \
+  --key "$EVAL/runs/<라운드>/private-key-dev.jsonl"
+
+python3 "$HARNESS" report \
+  --policy "$EVAL/policy.json" \
+  --votes "$EVAL/runs/<라운드>/votes-dev.jsonl" \
+  --key "$EVAL/runs/<라운드>/private-key-dev.jsonl" \
+  --static-scores "$EVAL/runs/<라운드>/static-scores-dev.jsonl" \
+  --out "$EVAL/runs/<라운드>/report-dev"
+```
+
+두 결과(`report.json`·`report-dev.json`)의 후보 승률을 나란히 비교한다.
+둘 다 회귀(승률 하락)가 없고 적어도 하나는 개선이면 승격 후보다. 지금은
+사람이 두 보고서를 직접 비교하는 수준이고, 코드로 자동화하지 않는 이유는
+`self-improvement-prd.md` 8절 참고.
 
 ## 자기개선의 경계
 

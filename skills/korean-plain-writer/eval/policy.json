@@ -12,7 +12,9 @@
     "require_all_strata_represented": true,
     "minimum_decisions_per_stratum": 2,
     "minimum_stratum_win_rate": 0.40,
-    "maximum_overedit_rate_regression": 0.05
+    "maximum_overedit_rate_regression": 0.05,
+    "dual_split_required": true,
+    "dual_split_note": "dev(held-in)와 validation(held-out) 양쪽에서 챌린저 승률이 챔피언보다 낮아지지 않고 적어도 한쪽은 개선되어야 함. 이 필드는 문서적 요구사항이며 eval_harness.py가 자동으로 강제하지 않는다 — HARNESS.md의 'held-in / held-out 이중 비퇴화 확인' 절차대로 report를 두 번 돌려서 사람이 직접 비교한다. 이유는 self-improvement-prd.md 8절 참고."
   },
   "static_checks": {
     "preserve_numbers": true,

@@ -35,6 +35,12 @@
 블라인드 선호 평가에서 우세하고, 절대 실패 게이트를 통과하며, 이미 좋은 글을 덜
 건드릴 때 개선으로 본다.
 
+**held-in(dev) / held-out(validation) 이중 비퇴화**: `cases/dev.jsonl`과
+`cases/validation.jsonl` 양쪽에서 challenger 승률이 champion보다 낮아지지
+않고, 적어도 한쪽은 실제로 개선돼야 승격 후보가 된다. 한쪽을 희생해서 다른
+쪽만 좋아지는 트레이드오프는 승격 후보에서 제외한다. 설계 배경과 실행 방법은
+`self-improvement-prd.md` 5절, `HARNESS.md` 참고.
+
 절대 실패 게이트는 다음과 같다.
 
 - 숫자·날짜·고유명사·직접 인용 보존
@@ -62,6 +68,7 @@
 - `report.md`의 판정이 `eligible_for_human_review`
 - 후보의 중대 실패 0건
 - `HARNESS.md`의 "독립 채점자 확보" 절차로 재채점한 결과가 원래 판정과 일치
+- dev·validation 이중 비퇴화 조건을 통과(위 "성공의 운영적 정의" 참고)
 
 ### 사람의 승인이 반드시 필요
 
