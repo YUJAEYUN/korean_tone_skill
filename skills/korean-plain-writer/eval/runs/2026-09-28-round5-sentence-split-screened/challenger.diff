@@ -1,0 +1,17 @@
+diff -ruN champion/skills/korean-plain-writer/SKILL.md challenger/skills/korean-plain-writer/SKILL.md
+--- champion/skills/korean-plain-writer/SKILL.md	2026-09-27 19:55:57
++++ challenger/skills/korean-plain-writer/SKILL.md	2026-09-27 19:55:57
+@@ -87,6 +87,13 @@
+ 3. `references/genre-rules.md`로 문장 길이 리듬과 톤을 장르에 맞추고, 장르 공통 원칙
+    (고압적·차별적 표현, 접속어·조사 정확성, 더 명확한 긍정문, 필요한 목록화)도 확인합니다.
+    부정·조건·예외가 의미의 일부라면 긍정문이나 목록으로 억지로 바꾸지 않습니다.
++   정보 전달형과 실용문에서는 어휘만 바꾸고 문장 경계를 원문 그대로 두지 않습니다.
++   연결어미로 절이 셋 이상 이어졌거나, 원인과 결과·조건과 행동처럼 서로 다른 정보가 한
++   문장에 겹쳐 있으면 두세 문장으로 나눕니다(`genre-rules.md`의 "한 문장에 하나의 정보",
++   "한 문장에 정보를 몰아넣지 않기"). 나눌 때는 연결어미가 담던 관계를 접속어로 살립니다
++   (-므로·-어서 → 그래서, -면 → 그러면, -지만 → 하지만). 배경을 까는 "-는데"는 "그런데"로
++   바꾸지 말고 앞 문장을 끝낸 뒤 바로 이어 씁니다. 에세이와 이미 자연스러운 글은 리듬을
++   우선하고 나누기를 강제하지 않습니다.
+ 4. `references/fabricated-terms.md`의 판별법으로 조어형 추상 개념어를 확인하고,
+    조어로 판단되면 용어를 그대로 두지 말고 평범한 서술로 풀어씁니다.
+ 5. `examples/pairs/`의 Before/After 사례를 필요시 참조해 감을 잡습니다(규칙 나열보다 실례가

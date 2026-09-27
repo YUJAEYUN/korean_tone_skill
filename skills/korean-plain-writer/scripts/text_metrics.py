@@ -16,6 +16,9 @@
   상태 변화라 세지 않고, 명사+되다("시작되다")는 표준 동사가 많아 세지 않는다. 명사+되어지다
   ("해결되어지다", 이중 피동)는 센다
 - 명사형 어미(-기, -음) 빈도(100어절당): 명사화 문장("~함", "~하기")
+- 다절 문장 수: 절을 잇는 연결어미("-고", "-는데", "-면", "-지만", "-거나" 등)가 3개 이상인
+  문장 수. "-어/-아/-게/-지"와 보조용언 앞 어미는 절 연결로 보지 않는다. 자연스러운 구어체
+  글에도 이런 문장이 있으므로 문장 길이와 함께 본다
 - 어휘 다양성 MATTR: 생성형 AI 글이 사람 글보다 어휘 다양성이 낮다는 KCI 연구.
   떨어지지 않는지 보는 용도다
 - 어려운 표현 잔존: `references/plain-vocabulary-map.md` 1열 표현의 등장 횟수
@@ -51,6 +54,9 @@ VOCAB_MAP_PATH = Path(__file__).resolve().parent.parent / "references" / "plain-
 # 어휘 다양성은 실질 형태소로만 센다. 조사·어미까지 넣으면 문법 형태소 반복이 값을 좌우한다.
 CONTENT_TAGS = {"NNG", "NNP", "VV", "VA", "MAG", "XR"}
 MATTR_WINDOW = 50
+# 절을 잇지 않고 동사를 가볍게 붙이는 연결어미("막아 두다", "크게", "먹지 않다").
+LIGHT_CONNECTIVES = {"어", "아", "게", "지"}
+MULTICLAUSE_MIN = 3
 
 # 어떤 문맥에서도 표준 표기가 아닌 것만 넣는다. "금새"(물건값), "바램"(색이 바램)처럼
 # 맞는 뜻이 따로 있는 표기는 오탐이 나므로 넣지 않는다.
@@ -140,11 +146,21 @@ def mattr(lemmas: list[str], window: int = MATTR_WINDOW) -> float | None:
     return round(statistics.mean(ratios), 3)
 
 
+def connective_count(tokens: list[Any]) -> int:
+    """절을 잇는 연결어미 수. 보조용언(VX) 앞의 연결어미와 LIGHT_CONNECTIVES는 뺀다."""
+    return sum(
+        1 for i, t in enumerate(tokens)
+        if t.tag == "EC" and t.form not in LIGHT_CONNECTIVES
+        and not (i + 1 < len(tokens) and tokens[i + 1].tag.startswith("VX"))
+    )
+
+
 def measure(text: str) -> dict[str, Any]:
     kiwi = _kiwi()
     eojeol = _eojeol_count(text)
     sentences = [s.text for s in kiwi.split_into_sents(text) if _WORD_RE.search(s.text)]
     lengths = [_eojeol_count(s) for s in sentences]
+    multiclause = sum(1 for s in sentences if connective_count(kiwi.tokenize(s)) >= MULTICLAUSE_MIN)
     tokens = kiwi.tokenize(text)
 
     jeok = sum(1 for t in tokens if t.tag == "XSN" and t.form == "적")
@@ -184,6 +200,7 @@ def measure(text: str) -> dict[str, Any]:
         "sentences": len(lengths),
         "mean_sentence_length": round(statistics.mean(lengths), 1) if lengths else None,
         "max_sentence_length": max(lengths) if lengths else None,
+        "multiclause_sentences": multiclause,
         "jeok_ui_geot_deul_per_100": _per_100(jeok + ui + geot + deul, eojeol),
         "jeok_ui_geot_deul": {"적": jeok, "의": ui, "것": geot, "들": deul},
         "passive_per_100": _per_100(passive, eojeol),
@@ -201,6 +218,7 @@ def measure(text: str) -> dict[str, Any]:
 DIRECTIONS = {
     "mean_sentence_length": "down",
     "max_sentence_length": "down",
+    "multiclause_sentences": "down",
     "jeok_ui_geot_deul_per_100": "down",
     "passive_per_100": "down",
     "nominal_ending_per_100": "down",
@@ -212,6 +230,7 @@ DIRECTIONS = {
 LABELS = {
     "mean_sentence_length": "평균 문장 길이(어절)",
     "max_sentence_length": "최대 문장 길이(어절)",
+    "multiclause_sentences": "다절 문장 수(연결어미 3+)",
     "jeok_ui_geot_deul_per_100": "적·의·것·들 (100어절당)",
     "passive_per_100": "피동 -어지다 (100어절당)",
     "nominal_ending_per_100": "명사형 어미 -기/-음 (100어절당)",

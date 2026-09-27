@@ -102,8 +102,9 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
 
 - 긴 문장 나누기: 실제 AI 글에서 현재 스킬이 평균 문장 길이를 14.2 → 13.8어절로 거의 줄이지
   않음(`text-metrics-baseline.md`). 라운드 4에서 SKILL.md 문구로 시도했으나 행동 변화 없음.
-  다음 시도는 대상 실패를 포함한 원문을 먼저 선별한 뒤
-  ([`round4 README`](./skills/korean-plain-writer/eval/runs/2026-09-27-round4-sentence-split/README.md))
+  라운드 5에서 대상 문장을 선별해 보니 무유도 AI 글 29편 중 3편에만 있어 우선순위를 낮춤
+  ([`round5 README`](./skills/korean-plain-writer/eval/runs/2026-09-28-round5-sentence-split-screened/README.md))
+- 다음 가설을 고르기 전에 대상 실패가 실제 입력에서 얼마나 자주 나오는지 먼저 측정
 - "불필요한 설명" 기준을 `korean-writing-orchestrator`(새 글쓰기) 쪽으로 옮길지 결정
   (round3 README 참고)
 
