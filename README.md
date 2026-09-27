@@ -32,6 +32,15 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   - [`references/fabricated-terms.md`](./skills/korean-plain-writer/references/fabricated-terms.md): 조어형 추상 개념어 판별법
 - 예문 뱅크: [`examples/pairs/`](./skills/korean-plain-writer/examples/pairs/) (Before/After, 100~200쌍이 목표이고 지금은 45쌍)
 - 변경률 확인 스크립트: [`scripts/change_rate_check.py`](./skills/korean-plain-writer/scripts/change_rate_check.py)
+- 읽기 쉬움 지표 스크립트: [`scripts/text_metrics.py`](./skills/korean-plain-writer/scripts/text_metrics.py)
+  (Kiwi 형태소 분석으로 문장 길이, 적·의·것·들, 피동, 어려운 표현 잔존, 확실한 맞춤법 오류를
+  원문 대비로 측정. `pip install kiwipiepy` 필요. 지표별 신뢰도는
+  [`eval/text-metrics-baseline.md`](./skills/korean-plain-writer/eval/text-metrics-baseline.md))
+- 문체 획일화 지표: [`scripts/homogenization.py`](./skills/korean-plain-writer/scripts/homogenization.py)
+  (서로 다른 글들이 고친 뒤 말투가 더 비슷해지는지, 조사·어미 분포로 비교)
+- LLM 채점자 검증: [`scripts/judge_agreement.py`](./skills/korean-plain-writer/scripts/judge_agreement.py)
+  (전문가 점수와의 Spearman·RMSE·QWK. 절차는
+  [`korean-writing-orchestrator/eval/external-validation.md`](./skills/korean-writing-orchestrator/eval/external-validation.md))
 - 평가 하네스: [`eval/HARNESS.md`](./skills/korean-plain-writer/eval/HARNESS.md) 및
   [`scripts/eval_harness.py`](./skills/korean-plain-writer/scripts/eval_harness.py)
 - 참조 무결성 검사: [`scripts/check_references.py`](./scripts/check_references.py) (레포 루트, 스킬 파일들이 서로 가리키는 경로가 실제로 존재하는지 확인)
@@ -84,12 +93,26 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   [`eval/self-improvement-prd.md`](./skills/korean-plain-writer/eval/self-improvement-prd.md),
   실행 절차는 `human-rating-protocol.md`·`failure-log.jsonl`)
 
+- Kiwi 기반 읽기 쉬움 지표, 문체 획일화 지표, LLM 채점자 일치도 도구 추가
+  (`eval/text-metrics-baseline.md`에 예문 뱅크·실제 AI 글 실측)
+- 개선 라운드 3(불필요한 설명, LAMP 연구 기반) 실행. 후보가 행동을 바꾸지 못해 승격하지 않음
+  ([`eval/runs/2026-09-27-round3-empty-exposition/`](./skills/korean-plain-writer/eval/runs/2026-09-27-round3-empty-exposition/README.md))
+
 **다음 단계**
+
+- 긴 문장 나누기: 실제 AI 글에서 현재 스킬이 평균 문장 길이를 14.2 → 13.8어절로 거의 줄이지
+  않음(`text-metrics-baseline.md`). 라운드 4에서 SKILL.md 문구로 시도했으나 행동 변화 없음.
+  다음 시도는 대상 실패를 포함한 원문을 먼저 선별한 뒤
+  ([`round4 README`](./skills/korean-plain-writer/eval/runs/2026-09-27-round4-sentence-split/README.md))
+- "불필요한 설명" 기준을 `korean-writing-orchestrator`(새 글쓰기) 쪽으로 옮길지 결정
+  (round3 README 참고)
 
 - 새 구조로 첫 라운드 실제 진행(사람이 직접 글을 쓰고 채점)
 - `failure-log.jsonl`의 열린 항목("것이다" 정적 탐지 패턴 부재, 확신의 강도
   보존 체크 부재) 처리
 - 다른 회사 LLM 채점자 확보, 사람 채점자 2명 이상으로 확대
+- AI Hub 「에세이 글 평가 데이터」 신청(계정 소유자가 직접, 내국인만 가능) 후 LLM 채점자
+  대조(`external-validation.md`)
 - 저장소 밖 비공개 테스트셋 구축
-- 외부 맞춤법 검사기 연동(네트워크 제약으로 보류)
-- 문장 길이 등 자체 가독성 지표 추가
+- 외부 맞춤법 검사기 연동(문장 단위 문법 오류용. 확실한 오표기는 `text_metrics.py`가 잡음)
+- 여러 문단짜리 평가 문장 추가(지금 평가 문장은 1~3문장이라 읽기 쉬움 지표 대부분이 0에 몰림)

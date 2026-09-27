@@ -1,0 +1,35 @@
+{
+  "artifacts": {
+    "challenger": {
+      "path": "/private/tmp/claude-501/-Users-user-Desktop--------korean-tone-skill/a6fc0a2f-a39b-41ac-ae16-24961a60938f/scratchpad/snap4/challenger/skills/korean-plain-writer",
+      "sha256": "cde38459af70432e83a5516ea93e26f15f741b4a7e63bb63433e1fcff0ff4477"
+    },
+    "champion": {
+      "path": "/private/tmp/claude-501/-Users-user-Desktop--------korean-tone-skill/a6fc0a2f-a39b-41ac-ae16-24961a60938f/scratchpad/snap4/champion/skills/korean-plain-writer",
+      "sha256": "1947d3a5fa896212b4a931e16f60c82cbfb08c249365ced7f185dc46b8106de3"
+    },
+    "naive": {
+      "path": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/baselines/naive.md",
+      "sha256": "bbaa3155e03cfe7faaebef991a9af585655589a10c96959669253b0988c54fe9"
+    }
+  },
+  "case_file": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/cases/validation.jsonl",
+  "case_sha256": "af98f4ff1a8666315bcd9c3233f7f8fc820e8d5e69ed309c8d29ce2c66d34b68",
+  "created_at": "2026-09-27T10:57:29.670747+00:00",
+  "git_revision": "8bdc552908b5c6c369ec5daf9b99ad78a4a17604",
+  "model": "sonnet (Claude Code Agent 툴 alias, 세 조건 공통)",
+  "notes": "round4: 긴 문장 나누기 가설",
+  "policy_file": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/policy.json",
+  "policy_sha256": "1953327359b1271990ac9f145e82af3dbbab3054582584d290cd04a5fc8d2842",
+  "reasoning_effort": "default",
+  "schema_version": 1,
+  "skill_root": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer",
+  "skill_tree_sha256": "454001815ecafa48183c0ae6b4a2dd25a9dbc8c2722124445ed41bf1bf4d20d5",
+  "systems": [
+    "source",
+    "naive",
+    "champion",
+    "challenger"
+  ],
+  "trials": 2
+}

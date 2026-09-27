@@ -226,6 +226,23 @@ def scan_composition_cliches(text: str) -> dict[str, Any]:
     return {"advisory": True, "triggered": triggered, "opener_hit": opener_hit, "closer_hit": closer_hit}
 
 
+def text_metrics_check(original: str, output: str) -> dict[str, Any]:
+    """Readability deltas from scripts/text_metrics.py, advisory only.
+
+    Imported lazily so the harness still runs without kiwipiepy installed;
+    a missing dependency is recorded instead of failing the whole grade.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    try:
+        from text_metrics import compare
+        result = compare(original, output)
+    except (ImportError, RuntimeError) as error:
+        return {"advisory": True, "pass": True, "skipped": str(error)}
+    return {"advisory": True, "pass": True, "deltas": result["deltas"],
+            "hard_term_hits": result["after"]["hard_term_hits"],
+            "misspelling_hits": result["after"]["misspelling_hits"]}
+
+
 class HarnessError(ValueError):
     pass
 
@@ -416,7 +433,12 @@ def static_grade(case: dict[str, Any], output: str, policy: dict[str, Any]) -> d
         checks["rhythm"] = {"advisory": True, "pass": True, **rhythm_stats(output)}
         checks["composition_cliches"] = scan_composition_cliches(output)
 
-    advisory_checks = {"change_ratio", "ai_grammar_patterns", "rhythm", "composition_cliches"}
+    # Opt-in because it needs kiwipiepy; see scripts/text_metrics.py and
+    # eval/text-metrics-baseline.md for what each number means.
+    if policy["static_checks"].get("text_metrics", False):
+        checks["text_metrics"] = text_metrics_check(original, output)
+
+    advisory_checks = {"change_ratio", "ai_grammar_patterns", "rhythm", "composition_cliches", "text_metrics"}
     critical_failures = [
         name for name, result in checks.items()
         if name not in advisory_checks and isinstance(result, dict) and not result.get("pass", True)

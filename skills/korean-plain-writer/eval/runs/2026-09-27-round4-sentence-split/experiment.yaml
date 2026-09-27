@@ -1,0 +1,38 @@
+hypothesis: >
+  "한 문장에 하나의 정보만 담는다", "한 문장에 정보를 몰아넣지 않는다"는 규칙이
+  references/genre-rules.md에만 있고, SKILL.md 3단계는 이를 "문장 길이 리듬과 톤을 장르에
+  맞추라"고만 요약한다. 그래서 실행 모델이 문장 단위로 어휘만 바꾸고 문장 경계는 원문 그대로
+  둔다(fl-008).
+research_basis: >
+  (1) 국립국어원 공공언어 진단 기준 용이성 2.3.1 "문장을 적절한 길이로 작성하였는가"
+  (2015·2017 진단 보고서, related-work.md 7.1절에서 원문 확인). (2) 국립국어원 『쉬운 공문서
+  쓰기 길잡이』(2022)의 "한 문장에 정보를 몰아넣지 않기"(genre-rules.md에 이미 반영). (3) ISO
+  24495-1:2023 "Understandable" 원칙의 접근하기 쉬운 문장 구조(iso.org 표준 소개와 IPLF
+  해설에서 확인). 한계: 한국어 가독성 공식 연구(KCI, related-work.md 5절)에서는 문장 길이가
+  최종 회귀 모형에 들어가지 않았다. 문장 길이 자체보다 "한 문장에 겹친 정보의 수"를 기준으로
+  삼은 이유다.
+evidence_cases:
+  - "round3 champion 출력(val5-sleep-01, val5-battery-01, val5-privacy-01)에서 원문의 18~23어절
+     다절 문장이 어휘만 바뀐 채 남음. 예: '~강화하는데, ~이루어지지 않으면 ~흐트러지고
+     ~떨어집니다'(22어절)"
+proposed_change: >
+  SKILL.md 3단계 3번에 문단 하나를 덧붙인다. 정보 전달·실용문에서 절이 셋 이상 이어졌거나
+  서로 다른 정보가 겹친 문장은 두세 문장으로 나누고, 연결어미의 관계를 접속어로 살리며,
+  배경의 "-는데"는 "그런데"로 바꾸지 않고, 에세이·자연스러운 글에는 강제하지 않는다.
+  그 외 파일은 건드리지 않는다.
+expected_effect: >
+  ai_heavy 정보 전달·실용문의 평균·최대 문장 길이(text_metrics.py)가 champion보다 줄고,
+  블라인드 쌍대 평가에서 challenger가 이긴다.
+regression_risk: >
+  (1) 문장을 나누면서 인과·조건·대조 관계가 흐려지거나 바뀜(의미 게이트 logical_relations).
+  (2) 짧은 문장이 연달아 이어져 뚝뚝 끊기는 글(유창성).
+  (3) 에세이·자연스러운 글까지 잘게 쪼개 목소리가 사라짐.
+files_allowed:
+  - skills/korean-plain-writer/SKILL.md
+stop_condition: >
+  의미 게이트 실패가 1건이라도 나오거나 에세이 장르 승률이 정책 하한(0.40)보다 낮으면
+  승격하지 않는다. 두 번의 패치로도 효과가 없으면 중단한다.
+generation_method: >
+  round3와 같다. 원문은 무유도 생성(haiku 8편, opus 2편), 출력은 naive·champion·challenger
+  각 2회 sonnet Agent. 이번에는 블라인드 쌍대 채점(sonnet·opus 두 Agent, 서로 독립)과
+  의미 게이트 채점(별도 Agent)까지 한다.

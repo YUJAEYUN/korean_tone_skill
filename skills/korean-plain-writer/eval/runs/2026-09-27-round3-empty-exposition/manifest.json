@@ -1,0 +1,35 @@
+{
+  "artifacts": {
+    "challenger": {
+      "path": "/private/tmp/claude-501/-Users-user-Desktop--------korean-tone-skill/a6fc0a2f-a39b-41ac-ae16-24961a60938f/scratchpad/snap/challenger/skills/korean-plain-writer",
+      "sha256": "b59977c1813e3e36c47546aa0e5dede67d043dee2160c132638b374aa3915527"
+    },
+    "champion": {
+      "path": "/private/tmp/claude-501/-Users-user-Desktop--------korean-tone-skill/a6fc0a2f-a39b-41ac-ae16-24961a60938f/scratchpad/snap/champion/skills/korean-plain-writer",
+      "sha256": "1947d3a5fa896212b4a931e16f60c82cbfb08c249365ced7f185dc46b8106de3"
+    },
+    "naive": {
+      "path": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/baselines/naive.md",
+      "sha256": "bbaa3155e03cfe7faaebef991a9af585655589a10c96959669253b0988c54fe9"
+    }
+  },
+  "case_file": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/cases/validation.jsonl",
+  "case_sha256": "4a80021ee31b0b0bcb66e8066977ac1a82213abca8ce29737f448e66391d2417",
+  "created_at": "2026-09-27T10:43:37.585262+00:00",
+  "git_revision": "c5ac49c8dc5a54351482a80424295a8305bf890c",
+  "model": "sonnet (Claude Code Agent 툴 alias, 세 조건 공통)",
+  "notes": "round3: 불필요한 설명(LAMP) 가설",
+  "policy_file": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer/eval/policy.json",
+  "policy_sha256": "1953327359b1271990ac9f145e82af3dbbab3054582584d290cd04a5fc8d2842",
+  "reasoning_effort": "default",
+  "schema_version": 1,
+  "skill_root": "/Users/user/Desktop/사프(기타)/korean_tone_skill/skills/korean-plain-writer",
+  "skill_tree_sha256": "6175eb0a5025a5fa3c39b22be2c7db32e317892d994433ecc7e29be16cae6f91",
+  "systems": [
+    "source",
+    "naive",
+    "champion",
+    "challenger"
+  ],
+  "trials": 2
+}

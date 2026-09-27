@@ -77,3 +77,4 @@ S1/S2/S3 개수는 사람 자연스러움의 대리값일 뿐이므로 “자연
 - `related-work.md`: 평가 설계의 연구·공식 자료 근거
 - `results.md`: 사람 평가의 역사적 기록
 - `change-rate-baseline.md`: 변경률이 품질 게이트가 될 수 없는 이유
+- `text-metrics-baseline.md`: 읽기 쉬움 지표가 예문 뱅크에서 실제로 기대 방향으로 움직이는지 실측
