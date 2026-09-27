@@ -192,6 +192,12 @@ challenger인지 짐작해서 투표를 적지 않는다. 2026-09-14 orchestrato
 `advisory: true`로 표시되고 `critical_failures`에 넣지 않는다. 사람이 승격을 검토할 때
 어떤 champion/challenger가 이 패턴을 더 자주 쓰는지 참고 신호로 쓴다.
 
+**읽기 쉬움 지표(선택).** `policy.json`의 `static_checks`에 `"text_metrics": true`를
+넣으면 `scripts/text_metrics.py`로 문장 길이, 적·의·것·들, 피동, 어려운 표현 잔존,
+확실한 맞춤법 오류의 원문 대비 변화량을 `checks.text_metrics`에 기록한다. kiwipiepy가
+필요하고, 없으면 `skipped`로 남긴다. 역시 `advisory`다. 지표별 신뢰도는
+`text-metrics-baseline.md` 참고.
+
 **외부 맞춤법 검사기는 아직 연결 안 됨.** 부산대 맞춤법 검사기(`speller.cs.pusan.ac.kr`)
 같은 실제 맞춤법·문법 API를 결정론적 게이트로 추가하는 게 다음 단계인데, 이 저장소
 세션의 네트워크 정책이 해당 도메인을 막고 있어(`__agentproxy/status`에

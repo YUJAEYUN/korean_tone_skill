@@ -32,6 +32,10 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   - [`references/fabricated-terms.md`](./skills/korean-plain-writer/references/fabricated-terms.md): 조어형 추상 개념어 판별법
 - 예문 뱅크: [`examples/pairs/`](./skills/korean-plain-writer/examples/pairs/) (Before/After, 100~200쌍이 목표이고 지금은 45쌍)
 - 변경률 확인 스크립트: [`scripts/change_rate_check.py`](./skills/korean-plain-writer/scripts/change_rate_check.py)
+- 읽기 쉬움 지표 스크립트: [`scripts/text_metrics.py`](./skills/korean-plain-writer/scripts/text_metrics.py)
+  (Kiwi 형태소 분석으로 문장 길이, 적·의·것·들, 피동, 어려운 표현 잔존, 확실한 맞춤법 오류를
+  원문 대비로 측정. `pip install kiwipiepy` 필요. 지표별 신뢰도는
+  [`eval/text-metrics-baseline.md`](./skills/korean-plain-writer/eval/text-metrics-baseline.md))
 - 평가 하네스: [`eval/HARNESS.md`](./skills/korean-plain-writer/eval/HARNESS.md) 및
   [`scripts/eval_harness.py`](./skills/korean-plain-writer/scripts/eval_harness.py)
 - 참조 무결성 검사: [`scripts/check_references.py`](./scripts/check_references.py) (레포 루트, 스킬 파일들이 서로 가리키는 경로가 실제로 존재하는지 확인)
@@ -91,5 +95,5 @@ DaleSeo/korean-skills와 DietrichGebert/ponytail 등 여러 Claude Code 스킬 �
   보존 체크 부재) 처리
 - 다른 회사 LLM 채점자 확보, 사람 채점자 2명 이상으로 확대
 - 저장소 밖 비공개 테스트셋 구축
-- 외부 맞춤법 검사기 연동(네트워크 제약으로 보류)
-- 문장 길이 등 자체 가독성 지표 추가
+- 외부 맞춤법 검사기 연동(문장 단위 문법 오류용. 확실한 오표기는 `text_metrics.py`가 잡음)
+- 여러 문단짜리 평가 문장 추가(지금 평가 문장은 1~3문장이라 읽기 쉬움 지표 대부분이 0에 몰림)
