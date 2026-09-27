@@ -1,0 +1,39 @@
+hypothesis: >
+  현재 스킬의 진단 자료(vendor/humanizer 카탈로그와 이 스킬의 references)는 전부 표현
+  층위다. "결론적으로"를 지우거나(패턴 37) 어휘를 바꾸지만, 문장 전체가 새 정보를 싣지
+  않는 경우(앞 문장 되풀이, 뻔한 일반론, 빈 마무리)는 판별 기준이 없어 문장이 남는다.
+  AI 생성문에는 이런 문장이 흔하므로 재작성본에도 군더더기가 남는다.
+research_basis: >
+  Chakrabarty 외, "Can AI writing be salvaged? Mitigating Idiosyncrasies and Improving
+  Human-AI Alignment in the Writing Process through Edits", CHI 2025, arXiv:2409.14509.
+  전문 작가들이 GPT-4o·Claude 3.5 Sonnet·Llama 3.1 문단 1,057개를 편집한 LAMP 코퍼스에서
+  편집 8,035건 중 18%가 "Unnecessary/Redundant Exposition"이었다(arxiv.org/html/2409.14509v2
+  본문을 직접 열어 확인, 2026-09-27). 같은 논문의 "Lack of Specificity" 범주는 고치려면
+  사실을 새로 넣어야 해서 이 스킬의 "원문에 없는 사실을 보태지 않는다" 원칙과 충돌하므로
+  이번 가설에서 제외하고 failure-log에 따로 남겼다.
+evidence_cases:
+  - "무유도 생성(haiku, 문체 지시 없음) 7편 중 관측: val5-sleep-01·val5-privacy-01 마지막
+     문장(\"따라서 ~\"로 앞 내용을 되풀이), val5-dues-01 마지막 문장(빈 마무리),
+     val5-travel-01·val5-dawn-01 마지막 문장(일반론 성격의 마무리 감상 — 1인칭이라
+     지우면 안 되는 경계 사례)"
+proposed_change: >
+  references/empty-exposition.md 신설(판별 기준 3가지, 지우기 전 새 정보 확인, 지우지
+  않는 경우 4가지). SKILL.md 1단계에 이 파일을 가리키는 한 문단, 3단계에 적용 항목 1개,
+  참조 파일 표에 1행 추가. 그 외 규칙·매핑표·장르 규칙은 건드리지 않는다.
+expected_effect: >
+  ai_heavy 정보글·공지에서 앞 문장을 되풀이하는 결론 문장과 빈 마무리 문장이 사라진다.
+regression_risk: >
+  (1) 새 정보(날짜·조건·요청)가 섞인 문장까지 지워 의미 게이트의 omission에 걸릴 위험.
+  (2) 에세이·후기의 1인칭 마무리 감상을 일반론으로 오인해 지워 글쓴이 목소리가 사라질 위험.
+  (3) 이미 자연스러운 글(natural 3건)에서 인사·관례 문장을 지우는 과잉 수정.
+files_allowed:
+  - skills/korean-plain-writer/SKILL.md
+  - skills/korean-plain-writer/references/empty-exposition.md
+stop_condition: >
+  의미 게이트 omission 실패가 1건이라도 나오거나, natural 사례에서 champion보다 과잉 수정이
+  늘면 이 형태로는 승격하지 않고 "지우지 않는 경우"를 좁히는 방향으로 한 번만 재시도한다.
+  두 번째도 효과가 없으면 중단한다.
+generation_method: >
+  원문: 무유도 프롬프트로 haiku가 ai_heavy 7편, opus가 natural 3편을 작성(문장을 손으로
+  짓지 않음). 출력: naive·champion·challenger 각 2회씩, 모두 sonnet Agent가 생성.
+  champion·challenger 실행 Agent에는 eval/ 폴더를 뺀 스킬 스냅샷만 보여 줬다.
